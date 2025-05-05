@@ -1,0 +1,63 @@
+.input,
+.textarea,
+.select { /* Estilos base para varios tipos de input */
+  display: block;
+  width: 100%;
+  padding: var(--spacing-small) var(--spacing-medium);
+  margin-bottom: var(--spacing-medium);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-small);
+  background-color: var(--color-white);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 1;
+}
+
+.textarea {
+  min-height: 100px; /* Altura mínima para textarea */
+  resize: vertical; /* Permitir redimensionar verticalmente */
+}
+
+/* Estilos para errores */
+.inputError,
+.textareaError,
+.selectError {
+    border-color: var(--color-error);
+}
+.inputError:focus,
+.textareaError:focus,
+.selectError:focus {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+}
+
+/* Para Checkbox/Radio (estilizado básico) */
+.checkboxLabel, .radioLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-small);
+  margin-bottom: var(--spacing-small);
+  cursor: pointer;
+}
+.checkbox, .radio {
+  width: auto; /* No ocupar todo el ancho */
+  margin-bottom: 0;
+  accent-color: var(--color-primary); /* Color del check/radio */
+  width: 1.1em; /* Tamaño controlable */
+  height: 1.1em;
+}

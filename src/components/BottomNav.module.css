@@ -1,0 +1,43 @@
+.nav {
+    position: fixed; /* Fijo en la parte inferior */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-white); /* Fondo blanco */
+    padding: var(--spacing-small) 0 var(--spacing-xs); /* Más padding arriba */
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.05); /* Sombra superior sutil */
+    z-index: 1000; /* Asegurar que esté por encima de todo */
+    height: 65px; /* Altura fija (ajusta según necesites) */
+  }
+  
+  .link {
+    flex: 1; /* Ocupa espacio equitativamente */
+    display: flex;
+    flex-direction: column; /* Icono arriba, texto abajo */
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--color-text-secondary); /* Color inactivo */
+    text-align: center;
+    padding: var(--spacing-xs) 0;
+    font-size: 0.75rem; /* Tamaño texto muy pequeño */
+    line-height: 1.2; /* Ajustar altura línea */
+    border-radius: var(--border-radius-small);
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+  
+  .link svg { /* Estilo para iconos SVG */
+      margin-bottom: 2px; /* Espacio mínimo entre icono y texto */
+  }
+  
+  .activeLink {
+    color: var(--color-primary); /* Color primario para el activo */
+    /* font-weight: 600; /* Opcional: más peso */
+  }
+  
+  .link:hover:not(.activeLink) { /* Hover solo si no está activo */
+      color: var(--color-text-primary);
+  }

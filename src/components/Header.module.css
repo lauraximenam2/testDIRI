@@ -1,0 +1,69 @@
+.header {
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky; /* Fijo al hacer scroll */
+    top: 0;
+    z-index: 100; /* Asegurar que esté por encima */
+    height: 75px; /* Altura fija del header */
+    display: flex;
+    align-items: center;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 var(--spacing-medium); /* Padding horizontal */
+  }
+  
+  .leftSection,
+  .rightSection {
+    flex: 1; /* Ocupa espacio flexible */
+    display: flex;
+    align-items: center;
+  }
+  
+  .leftSection {
+    justify-content: flex-start; /* Alinear a la izquierda */
+  }
+  
+  .rightSection {
+    justify-content: flex-end; /* Alinear a la derecha */
+    gap: var(--spacing-small); /* Espacio entre elementos a la derecha */
+  }
+  
+  .centerSection {
+    flex: 0 1 auto; /* No crece, no encoge, base automática */
+    display: flex; /* Para centrar el logo si es necesario */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .logo {
+    height: 90px; /* Ajusta la altura del logo según necesites */
+    width: auto; /* Ancho automático para mantener proporción */
+    display: block; /* Evita espacio extra debajo */
+  }
+  
+  .backButton {
+    padding: var(--spacing-small); /* Padding para área de click */
+    color: var(--color-text-secondary);
+  }
+  .backButton:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+  }
+  .backButton svg {
+    display: block;
+  }
+  
+  /* Estilos para los botones dentro de rightContent si son necesarios */
+  .rightSection > button {
+      color: var(--color-text-secondary);
+  }
+   .rightSection > button:hover {
+      color: var(--color-text-primary);
+      background-color: var(--color-background);
+  }

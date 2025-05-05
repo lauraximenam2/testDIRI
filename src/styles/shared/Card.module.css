@@ -1,0 +1,35 @@
+.card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-medium);
+    padding: var(--spacing-medium);
+    margin-bottom: var(--spacing-medium);
+    box-shadow: var(--shadow-sm); /* Sombra más sutil por defecto */
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    overflow: hidden; /* Asegurar que contenido no desborde bordes redondeados */
+  }
+  
+  .cardClickable:hover { /* Solo si la card entera es clickeable */
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px); /* Efecto ligero de elevación */
+    cursor: pointer;
+  }
+  
+  /* Modificadores */
+  .cardFlush { /* Sin padding */
+      padding: 0;
+  }
+  
+  .cardDarker {
+      background-color: var(--color-background); /* Fondo ligeramente gris */
+  }
+  
+  .cardAccentBorder { /* Borde lateral de color */
+      border-left: 4px solid var(--color-accent);
+  }
+  .cardPrimaryBorder {
+      border-left: 4px solid var(--color-primary);
+  }
+  .cardErrorBorder {
+      border-left: 4px solid var(--color-error);
+  }

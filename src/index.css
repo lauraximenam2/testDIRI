@@ -1,0 +1,116 @@
+/* src/index.css */
+:root {
+  --color-primary: #4CAF50; /* Verde */
+  --color-secondary: #DCE775; /* Lima */
+  --color-accent: #03A9F4; /* Azul */
+  --color-background: #F8F9FA; /* Blanco Hueso */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-text-primary: #212529; /* Gris Oscuro */
+  --color-text-secondary: #6C757D; /* Gris Medio */
+  --color-border: #DEE2E6; /* Gris Claro */
+  --color-error: #DC3545; /* Rojo */
+  --color-success: #28a745; /* Verde éxito (alternativo a primario) */
+  --color-warning: #ffc107; /* Amarillo advertencia */
+  --color-disabled-bg: #e9ecef; /* Fondo para elementos deshabilitados */
+  --color-disabled-text: #adb5bd; /* Texto para elementos deshabilitados */
+
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 12px;
+
+  --spacing-xs: 4px;
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+  --spacing-xl: 32px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: var(--spacing-medium);
+  line-height: 1.3; /* Ligeramente más ajustado */
+  font-weight: 600;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+
+p {
+  margin-bottom: var(--spacing-medium);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #0277BD; /* Azul un poco más oscuro */
+  text-decoration: underline;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none; /* Quitar borde por defecto */
+  background: none; /* Quitar fondo por defecto */
+}
+
+/* Clase global para contenedor principal de página (opcional) */
+.page-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  /* Evita que el contenido se pegue al BottomNav si es sticky/fixed */
+  padding-bottom: 80px; /* Ajustar según altura del BottomNav */
+}
+
+.main-content {
+    padding: var(--spacing-large);
+    flex-grow: 1;
+}
