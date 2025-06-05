@@ -1,66 +1,139 @@
+// src/components/Button.tsx
 import React from 'react';
-import styles from './Button.module.css';
+import { Link } from 'react-router-dom'; // Usar Link de react-router-dom para navegación interna
 
 type ButtonProps = {
   children: React.ReactNode;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void; // Tipar evento
+  onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void; // Puede ser click en <a> también
   variant?: 'primary' | 'secondary' | 'accent' | 'error' | 'outline' | 'ghost' | 'link';
-  type?: 'button' | 'submit' | 'reset';
+  type?: 'button' | 'submit' | 'reset'; // Solo aplicable si as='button'
   disabled?: boolean;
   fullWidth?: boolean;
   size?: 'small' | 'medium' | 'large';
-  className?: string; // Para añadir clases personalizadas
-  href?: string; // Si se usa como enlace
-  target?: string; // Para enlaces
-  rel?: string; // Para enlaces
+  className?: string; // Para clases adicionales
+  to?: string; // Para react-router-dom Link
+  href?: string; // Para enlaces externos <a> normales
+  as?: 'button' | 'link' | 'a'; // 'link' para react-router, 'a' para href externo
+  // Se pueden añadir otras props de HTMLButtonElement o HTMLAnchorElement si es necesario
+  [x: string]: any; // Para pasar otras props como target, rel, etc.
 };
 
 const Button: React.FC<ButtonProps> = ({
   children,
   onClick,
   variant = 'primary',
-  type = 'button',
+  type = 'button', // Default para <button>
   disabled = false,
   fullWidth = false,
   size = 'medium',
   className = '',
-  href,
-  ...props // Resto de props como target, rel
+  to,         // Para react-router Link
+  href,       // Para <a> normal
+  as,         // Para forzar renderizado como 'a' o 'button'
+  ...props    // Resto de props
 }) => {
-  const buttonClasses = [
-    styles.button,
-    styles[variant],
-    styles[size],
-    fullWidth ? styles.fullWidth : '',
-    className, // Permite añadir clases externas
-  ].filter(Boolean).join(' '); // Filtra undefined/null y une
-
-  if (href) {
-    // Renderiza como un enlace si href está presente
-    return (
-      <a
-        href={disabled ? undefined : href}
-        className={`${buttonClasses} ${disabled ? styles.disabledLink : ''}`}
-        aria-disabled={disabled}
-        {...props}
-      >
-        {children}
-      </a>
-    );
+  // Determinar el componente a renderizar
+  let Component: React.ElementType = 'button';
+  if (as === 'link' && to) {
+    Component = Link;
+  } else if (as === 'a' || href) {
+    Component = 'a';
+  } else if (as === 'button') {
+    Component = 'button';
   }
 
-  // Renderiza como botón
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      className={buttonClasses}
-      disabled={disabled}
-      {...props}
-    >
-      {children}
-    </button>
-  );
+
+  // Clases base comunes a todos los botones (excepto quizás 'link' puro)
+  const baseClasses: string[] = [
+    "inline-flex items-center justify-center",
+    "font-medium focus:outline-none rounded-md", // Ajusta rounded-md, rounded-lg, etc. según tu DS
+    "transition-all duration-150 ease-in-out", // Transiciones más completas
+    disabled ? "opacity-60 cursor-not-allowed" : "cursor-pointer",
+    "focus-visible:ring-2 focus-visible:ring-offset-2", // Anillo de foco
+  ];
+
+  // Clases específicas de la variante
+  let variantClasses: string[] = [];
+  switch (variant) {
+    case 'primary':
+      variantClasses = ["bg-primary text-primary", !disabled ? "hover:bg-primary-dark" : "", "focus-visible:ring-primary border"];
+      break;
+    case 'secondary':
+      variantClasses = ["bg-secondary text-gray-800", !disabled ? "hover:bg-secondary-dark" : "", "focus-visible:ring-secondary border border-transparent"];
+      break;
+    case 'accent':
+      variantClasses = ["bg-accent text-white", !disabled ? "hover:bg-accent-dark" : "", "focus-visible:ring-accent border border-transparent"];
+      break;
+    case 'error':
+      variantClasses = ["bg-error text-white", !disabled ? "hover:bg-red-700" : "", "focus-visible:ring-error border border-transparent"];
+      break;
+    case 'outline':
+      variantClasses = ["border border-primary text-primary", !disabled ? "hover:bg-primary hover:text-white" : "", "focus-visible:ring-primary"];
+      break;
+    case 'ghost':
+      variantClasses = ["text-gray-700 border border-transparent", !disabled ? "hover:bg-gray-100 hover:text-gray-900" : "", "focus-visible:ring-gray-400"];
+      break;
+    case 'link':
+
+      baseClasses.splice(0, baseClasses.length); 
+      baseClasses.push(
+        "inline-flex items-center font-medium text-accent underline-offset-4 focus:outline-none",
+        !disabled ? "hover:underline hover:text-accent-dark" : "opacity-60 cursor-not-allowed",
+        "focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-accent"
+      );
+      break;
+  }
+
+  let sizeClasses: string[] = [];
+  if (variant !== 'link') {
+    switch (size) {
+      case 'small':
+        sizeClasses = ["px-3 py-1.5 text-sm"]; 
+        break;
+      case 'medium':
+        sizeClasses = ["px-4 py-2 text-base"]; 
+        break;
+      case 'large':
+        sizeClasses = ["px-6 py-3 text-lg"]; 
+    }
+  } else {
+
+    if (size === 'small') sizeClasses.push("text-sm");
+    else if (size === 'large') sizeClasses.push("text-lg");
+
+  }
+
+
+  const fullWidthClasses = fullWidth ? ["w-full"] : [];
+
+  const combinedClasses = [
+    ...baseClasses,
+    ...variantClasses,
+    ...sizeClasses,
+    ...fullWidthClasses,
+    className,
+  ].filter(Boolean).join(' ');
+
+
+  const componentProps: any = {
+    ...props,
+    className: combinedClasses,
+    onClick: disabled ? (e: React.MouseEvent) => e.preventDefault() : onClick,
+  };
+
+  if (Component === 'button') {
+    componentProps.type = type;
+    componentProps.disabled = disabled;
+  } else if (Component === Link) {
+    componentProps.to = disabled ? '#' : to; 
+    if (disabled) componentProps['aria-disabled'] = true;
+  } else if (Component === 'a') {
+    componentProps.href = disabled ? undefined : href;
+    if (disabled) componentProps['aria-disabled'] = true;
+  }
+
+
+  return <Component {...componentProps}>{children}</Component>;
 };
 
 export default Button;

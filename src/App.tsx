@@ -1,88 +1,100 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+// src/App.tsx
+import React, { Suspense, lazy, useEffect } from 'react'; 
+import { BrowserRouter as Router, Routes, Route, Navigate, Link as RouterLink } from 'react-router-dom';
+import { useAuthContext } from './contexts/AuthContext';
 
-// Importa tus pantallas TSX
+import Header from './components/Header';
+import HomePage from './screens/HomePage';
 import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import DashboardScreen from './screens/DashboardScreen';
-import CourtListScreen from './screens/CourtListScreen';
-import DateTimeSelectionScreen from './screens/DateTimeSelectionScreen';
-import BookingConfirmationScreen from './screens/BookingConfirmationScreen';
-import MyBookingsScreen from './screens/MyBookingsScreen';
-import ProfileScreen from './screens/ProfileScreen';
-// Importa el componente BottomNav
-import BottomNav from './components/BottomNav';
 
-// --- Simulación de Autenticación ---
-// En una app real, esto vendría de un Context, Redux, Zustand, etc.
+
+// --- Carga diferida para las pantallas principales ---
+const RegisterScreen = lazy(() => import('./screens/RegisterScreen'));
+const DashboardScreen = lazy(() => import('./screens/DashboardScreen'));
+const CourtListScreen = lazy(() => import('./screens/CourtListScreen'));
+const DateTimeSelectionScreen = lazy(() => import('./screens/DateTimeSelectionScreen'));
+const BookingConfirmationScreen = lazy(() => import('./screens/BookingConfirmationScreen'));
+const MyBookingsScreen = lazy(() => import('./screens/MyBookingsScreen'));
+const ProfileScreen = lazy(() => import('./screens/ProfileScreen'));
+
+
+// --- Hook useAuth usa el contexto ---
 const useAuth = () => {
-  // Cambia esto para probar flujo autenticado/no autenticado
-  // Podrías usar localStorage o sessionStorage para persistencia básica
-  // const token = localStorage.getItem('authToken');
-  // return { isAuthenticated: !!token };
-   return { isAuthenticated: true }; // Cambia a false para probar redirección
+  const { currentUser, loading } = useAuthContext();
+  return { isAuthenticated: !!currentUser && !loading, user: currentUser, authLoading: loading };
 };
 
 // Componente para Rutas Protegidas
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated } = useAuth();
   if (!isAuthenticated) {
-    // Redirige a login si no está autenticado
-    // Puedes pasar la ruta original en el estado para redirigir después del login
     return <Navigate to="/login" replace />;
   }
-  return <>{children}</>; // Renderiza el componente hijo si está autenticado
+  return <>{children}</>;
 };
 
 
+const PageLoader: React.FC = () => (
+  <div className="flex items-center justify-center min-h-[calc(100vh-var(--header-height,56px)-var(--bottom-nav-height,0px))] p-6"> {/* Ajusta alturas */}
+    <div className="flex flex-col items-center">
+      <svg className="w-12 h-12 text-primary animate-spin mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <p className="text-lg text-gray-600">Cargando página...</p>
+    </div>
+  </div>
+);
+
 const App: React.FC = () => {
-  const { isAuthenticated } = useAuth(); // Solo para la ruta raíz
+  const { isAuthenticated, authLoading } = useAuth(); // Obtener authLoading
+
+  // Mostrar un loader global mientras se verifica el estado de autenticación inicial
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        {/* Aquí podrías poner un spinner más elaborado */}
+        <p className="text-lg text-gray-600">Verificando autenticación...</p>
+      </div>
+    );
+  }
+
 
   return (
     <Router>
-        {/* Renderiza BottomNav aquí para que esté disponible en todas las rutas protegidas */}
-        {/* Se oculta a sí mismo en /login y /register */}
-        <BottomNav />
+      <div className="flex flex-col min-h-screen bg-brand-background text-brand-text-primary antialiased">
+        <Header />
 
-        <Routes>
-          {/* Rutas Públicas */}
-          <Route path="/login" element={<LoginScreen />} />
-          <Route path="/register" element={<RegisterScreen />} />
-          {/* <Route path="/forgot-password" element={<ForgotPasswordScreen />} /> */}
-          {/* <Route path="/terms" element={<TermsScreen />} /> */}
+       <main className="flex-grow pt-14">
+        {/* Suspense envuelve todas las rutas que podrían cargar componentes diferidos */}
+          <Suspense fallback={<PageLoader />}> {/* Asumiendo que PageLoader existe */}
+            <Routes>
+              <Route
+                path="/"
+                element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <HomePage />}
+              />
+            
+              {/* LoginScreen no se difiere para acceso rápido */}
+              <Route path="/login" element={<LoginScreen />} />
+              {/* RegisterScreen se difiere */}
+              <Route path="/register" element={<RegisterScreen />} />
+
+              {/* Rutas Protegidas (la mayoría diferidas) */}
+              <Route path="/dashboard" element={<ProtectedRoute><DashboardScreen /></ProtectedRoute>} />
+              <Route path="/courts" element={<ProtectedRoute><CourtListScreen /></ProtectedRoute>} />
+              <Route path="/courts/:courtId/booking" element={<ProtectedRoute><DateTimeSelectionScreen /></ProtectedRoute>} />
+              <Route path="/courts/:courtId/confirm" element={<ProtectedRoute><BookingConfirmationScreen /></ProtectedRoute>} />
+              <Route path="/bookings" element={<ProtectedRoute><MyBookingsScreen /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute><ProfileScreen /></ProtectedRoute>} />
+              
+            </Routes>
+          </Suspense>
+        </main>
 
 
-          {/* Rutas Protegidas */}
-          <Route path="/dashboard" element={<ProtectedRoute><DashboardScreen /></ProtectedRoute>} />
-          <Route path="/courts" element={<ProtectedRoute><CourtListScreen /></ProtectedRoute>} />
-          <Route path="/courts/:courtId/booking" element={<ProtectedRoute><DateTimeSelectionScreen /></ProtectedRoute>} />
-          <Route path="/courts/:courtId/confirm" element={<ProtectedRoute><BookingConfirmationScreen /></ProtectedRoute>} />
-          <Route path="/bookings" element={<ProtectedRoute><MyBookingsScreen /></ProtectedRoute>} />
-          {/* <Route path="/bookings/:bookingId" element={<ProtectedRoute><BookingDetailScreen /></ProtectedRoute>} /> */}
-          <Route path="/profile" element={<ProtectedRoute><ProfileScreen /></ProtectedRoute>} />
-          {/* <Route path="/profile/edit" element={<ProtectedRoute><EditProfileScreen /></ProtectedRoute>} /> */}
-          {/* <Route path="/profile/change-password" element={<ProtectedRoute><ChangePasswordScreen /></ProtectedRoute>} /> */}
-          {/* <Route path="/settings" element={<ProtectedRoute><SettingsScreen /></ProtectedRoute>} /> */}
-          {/* <Route path="/help" element={<ProtectedRoute><HelpScreen /></ProtectedRoute>} /> */}
-
-
-          {/* Ruta Raíz: Redirige a dashboard si está autenticado, si no a login */}
-          <Route
-            path="/"
-            element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />}
-          />
-
-          {/* Ruta para páginas no encontradas (404) */}
-          <Route path="*" element={
-              <div style={{textAlign: 'center', padding: '50px'}}>
-                  <h1>404 - Página no encontrada</h1>
-                  <Link to="/">Volver al inicio</Link>
-              </div>
-            }
-          />
-        </Routes>
+      </div>
     </Router>
   );
-}
+};
 
 export default App;
