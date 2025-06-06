@@ -19,29 +19,29 @@ const LoginScreen: React.FC = () => {
 
 
   useEffect(() => {
-    logger.debug("LoginScreen montado");
+    logger.debug("LoginScreen montado", { state: null });
     return () => {
-      logger.debug("LoginScreen desmontado");
+      logger.debug("LoginScreen desmontado", { state: null });
     };
   }, []); 
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-    logger.info(`Intento de inicio de sesión para email: ${email}`); // Loguea el intento
+    logger.info(`Intento de inicio de sesión para email: ${email}`, { bookingData: {} as Omit<any, "id" | "bookedAt" | "status"> }); // Loguea el intento
     setError('');
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      logger.info(`Inicio de sesión exitoso para: ${email}`); // Loguea el éxito
+      logger.info(`Inicio de sesión exitoso para: ${email}`, { bookingData: {} as Omit<any, "id" | "bookedAt" | "status"> }); // Loguea el éxito
       navigate('/dashboard');
     } catch (err: any) {
 
-      logger.error(`Error de inicio de sesión para ${email}: ${err.message || String(err)}`);
+      logger.error(`Error de inicio de sesión para ${email}: ${err.message || String(err)}`, err);
       if (err.code) {
-        logger.debug(`Código de error de Firebase (login): ${err.code}`);
+        logger.debug(`Código de error de Firebase (login): ${err.code}`, { state: null });
       }
       if (err.stack) {
-        logger.debug(`Stack trace del error de login: ${err.stack}`);
+        logger.debug(`Stack trace del error de login: ${err.stack}`, { state: null });
       }
 
       let errorMessage = intl.formatMessage({ id: 'login.error.generic' });

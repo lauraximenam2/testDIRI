@@ -1,12 +1,12 @@
 // src/models/court.ts
 export interface ScheduleSlotData {
-  status: 'available' | 'booked' | 'maintenance' | string; // 'unavailable', etc.
+  status: 'available' | 'booked' | 'maintenance' | string; 
   userId?: string | null; // Quién reservó, si está 'booked'
   bookingId?: string | null; // ID de la reserva asociada
 }
 
 export interface DailyScheduleData {
-  [time: string]: ScheduleSlotData; // Clave es "HH:MM" (ej. "09:00")
+  [time: string]: ScheduleSlotData;
 }
 
 export interface Court {
@@ -17,14 +17,11 @@ export interface Court {
   img?: string;
   hourlyRate?: number;
   
-  // Este es el nodo que guardarías en Firebase para los horarios
-  // Es un objeto donde la clave es la fecha 'YYYY-MM-DD'
+//Horarios disponibles
   schedules?: {
     [dateISO: string]: DailyScheduleData;
   };
 
-  // Campos que podrías añadir en el cliente después de procesar los schedules para la UI
-  // No se guardan directamente así en Firebase, sino que se calculan
-  tempAvailabilitySummary?: string; // Ej: "5 horarios libres hoy"
+  tempAvailabilitySummary?: string; 
   isGenerallyAvailableOnSelectedDate?: boolean; // Para filtrar en CourtListScreen
 }

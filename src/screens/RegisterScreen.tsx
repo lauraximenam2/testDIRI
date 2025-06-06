@@ -4,11 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase-config';
-import { FormattedMessage, useIntl } from 'react-intl'; // Importar
+import { FormattedMessage, useIntl } from 'react-intl'; 
 
 const RegisterScreen: React.FC = () => {
   const navigate = useNavigate();
-  const intl = useIntl(); // Hook para internacionalización
+  const intl = useIntl(); 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,7 +47,7 @@ const RegisterScreen: React.FC = () => {
             errorMessage = intl.formatMessage({ id: 'register.error.weakPassword' });
             break;
           default:
-            errorMessage = err.message || errorMessage; // Usar el mensaje de Firebase si es más descriptivo
+            errorMessage = err.message || errorMessage; 
         }
       }
       setError(errorMessage);
@@ -65,7 +65,7 @@ const RegisterScreen: React.FC = () => {
 
         {error && (
           <div role="alert" className="p-3 text-sm text-center text-red-700 bg-red-100 border border-red-300 rounded-md">
-            {error} {/* El mensaje de error ya está internacionalizado en handleRegister */}
+            {error} 
           </div>
         )}
 

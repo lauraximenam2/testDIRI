@@ -6,7 +6,6 @@ import {
   FiCalendar,
   FiClock,
   FiPlusCircle,
-  // FiStar, // No usado directamente en el JSX visible
   FiMapPin,
   FiInfo,
   FiActivity
@@ -34,9 +33,9 @@ const DashboardScreen: React.FC = () => {
 
 
   useEffect(() => {
-    logger.debug("DashboardScreen montado");
+    logger.debug("DashboardScreen montado", { state: null });
     return () => {
-      logger.debug("DashboardScreen desmontado");
+      logger.debug("DashboardScreen desmontado", { state: null });
     };
   }, []);
 
@@ -45,24 +44,27 @@ const DashboardScreen: React.FC = () => {
                    currentUser?.email?.split('@')[0] ||
                    intl.formatMessage({ id: "general.userFallbackName" });
 
-  // Efecto para cargar la próxima reserva
+  // Cargamos la próxima reserva
   useEffect(() => {
     if (currentUser?.uid) {
-      logger.info(`Dashboard: Cargando próxima reserva para usuario ${currentUser.uid}`);
+      logger.info(`Dashboard: Cargando próxima reserva para usuario ${currentUser.uid}`, { bookingData: {} as Omit<Booking, "id" | "bookedAt" | "status"> });
       setLoadingUpcoming(true);
       setErrorUpcoming(null);
       bookingService.getUpcomingUserBookings(currentUser.uid, 1)
         .then(bookings => {
           if (bookings.length > 0) {
             setUpcomingBooking(bookings[0]);
-            logger.info(`Dashboard: Próxima reserva encontrada para ${currentUser.uid}: ID ${bookings[0].id}`);
+            logger.info(
+              `Dashboard: Próxima reserva encontrada para ${currentUser.uid}: ID ${bookings[0].id}`,
+              { bookingData: { ...bookings[0] } as Omit<Booking, "id" | "bookedAt" | "status"> }
+            );
           } else {
             setUpcomingBooking(null);
-            logger.info(`Dashboard: No hay próximas reservas para ${currentUser.uid}`);
+            logger.info(`Dashboard: No hay próximas reservas para ${currentUser.uid}`, { bookingData: {} as Omit<Booking, "id" | "bookedAt" | "status"> });
           }
         })
         .catch(error => {
-          logger.error(`Dashboard: Error cargando próxima reserva para ${currentUser.uid}: ${error.message || String(error)}`);
+          logger.error(`Dashboard: Error cargando próxima reserva para ${currentUser.uid}: ${error.message || String(error)}`, error);
           setErrorUpcoming(intl.formatMessage({ id: "dashboard.errorLoadingUpcomingBooking" }));
           setUpcomingBooking(null);
         })
@@ -70,25 +72,28 @@ const DashboardScreen: React.FC = () => {
           setLoadingUpcoming(false);
         });
     } else {
-      logger.info("Dashboard: No hay usuario logueado, no se carga próxima reserva.");
+      logger.info("Dashboard: No hay usuario logueado, no se carga próxima reserva.", { bookingData: {} as Omit<Booking, "id" | "bookedAt" | "status"> });
       setLoadingUpcoming(false);
       setUpcomingBooking(null);
     }
   }, [currentUser, intl]);
 
-  // Efecto para cargar canchas destacadas/populares
+  // Cargamos canchas destacadas/populares
   useEffect(() => {
-    logger.info("Dashboard: Cargando canchas destacadas.");
+    logger.info("Dashboard: Cargando canchas destacadas.", { bookingData: {} as Omit<Booking, "id" | "bookedAt" | "status"> });
     setLoadingFeaturedCourts(true);
     setErrorFeatured(null);
     courtService.findCourtsByName('') // Trae todas las canchas
       .then(allCourts => {
         const destacadas = allCourts.sort(() => 0.5 - Math.random()).slice(0, 3);
         setFeaturedCourts(destacadas);
-        logger.info(`Dashboard: ${destacadas.length} canchas destacadas cargadas.`);
+        logger.info(
+          `Dashboard: ${destacadas.length} canchas destacadas cargadas.`,
+          { bookingData: {} as Omit<Booking, "id" | "bookedAt" | "status"> }
+        );
       })
       .catch(error => {
-        logger.error(`Dashboard: Error cargando canchas destacadas: ${error.message || String(error)}`);
+        logger.error(`Dashboard: Error cargando canchas destacadas: ${error.message || String(error)}`, error);
         setErrorFeatured(intl.formatMessage({ id: "dashboard.errorLoadingFeaturedCourts" }));
         setFeaturedCourts([]);
       })

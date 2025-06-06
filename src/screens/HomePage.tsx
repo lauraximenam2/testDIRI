@@ -8,22 +8,22 @@ import { FormattedMessage } from 'react-intl';
 import logger from '../services/logging';
 
 const HomePage: React.FC = () => {
-  const { currentUser, loading: authLoading } = useAuthContext(); // Usar el hook real
+  const { currentUser, loading: authLoading } = useAuthContext();
 
   useEffect(() => {
-    // Log general de montaje para saber que el componente se está renderizando
-    logger.debug("HomePage montado");
+    // log general de montaje para saber que el componente se está renderizando
+    logger.debug("HomePage montado", { state: null });
 
-    // Loguear el estado de autenticación cuando se resuelva
+    // loguear el estado de autenticación cuando se resuelva
     if (!authLoading) {
       if (currentUser) {
-        logger.info("HomePage: Usuario autenticado, redirigiendo a /dashboard.");
+        logger.info("HomePage: Usuario autenticado, redirigiendo a /dashboard.", { bookingData: {} as Omit<any, "id" | "bookedAt" | "status"> });
       } else {
-        logger.info("HomePage: Usuario no autenticado, mostrando página de inicio.");
+        logger.info("HomePage: Usuario no autenticado, mostrando página de inicio.", { bookingData: {} as Omit<any, "id" | "bookedAt" | "status"> });
       }
     }
     return () => {
-      logger.debug("HomePage desmontado");
+      logger.debug("HomePage desmontado", { state: null });
     };
   }, [currentUser, authLoading]); 
 

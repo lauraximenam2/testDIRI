@@ -150,7 +150,14 @@
   "booking.duration.default": "1 hour",
   "booking.price.unavailable": "Price not available",
   "booking.date.unavailable": "Date not available",
-  "booking.time.unavailable": "Time not available"
+  "booking.time.unavailable": "Time not available",
+  "profile.myBookings": "My Bookings",
+  "profile.changePassword": "Change Password",
+  "profile.logoutButton": "Logout",
+  "profile.logoutConfirm": "Are you sure you want to logout?",
+  "profile.logoutError": "Error logging out. Please try again.",
+  "profile.emailUnavailable": "Email not available",
+  "profile.avatarAlt": "{name}'s avatar"
 
 
 

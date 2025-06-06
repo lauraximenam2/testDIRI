@@ -1,10 +1,9 @@
 // src/App.tsx
 import React, { Suspense, lazy, useEffect } from 'react';
-// BrowserRouter ya no se importa ni se usa aquí si está en main.tsx
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom'; // Outlet puede ser útil
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom'; 
 import { useAuthContext } from './contexts/AuthContext';
 
-import Header from './components/Header'; // Header SÍ usará useIntl y FormattedMessage
+import Header from './components/Header'; 
 import HomePage from './screens/HomePage';
 import LoginScreen from './screens/LoginScreen';
 
@@ -25,13 +24,11 @@ const useAuth = () => {
 
 // Componente para Rutas Protegidas
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isAuthenticated, authLoading } = useAuth(); // Incluir authLoading aquí
+  const { isAuthenticated, authLoading } = useAuth(); 
 
-  // Si la autenticación aún está cargando, podrías mostrar un loader o nada
-  // para evitar un parpadeo si el usuario está realmente autenticado.
+
   if (authLoading) {
-    // Podrías retornar un loader específico para rutas protegidas o null
-    return <PageLoader />; // O simplemente null si prefieres no mostrar nada hasta que se resuelva
+    return <PageLoader />; 
   }
 
   if (!isAuthenticated) {
@@ -53,14 +50,13 @@ const PageLoader: React.FC = () => (
 );
 
 // Layout principal que incluye el Header y un Outlet para las rutas anidadas
-// Esto es útil si todas tus rutas principales deben compartir el Header
 const MainLayout: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen bg-brand-background text-brand-text-primary antialiased">
       <Header />
-      <main className="flex-grow pt-14"> {/* pt-14 asumiendo que Header tiene h-14 */}
+      <main className="flex-grow pt-14">
         <Suspense fallback={<PageLoader />}>
-          <Outlet /> {/* Las rutas anidadas se renderizarán aquí */}
+          <Outlet /> 
         </Suspense>
       </main>
     </div>
@@ -82,10 +78,10 @@ const App: React.FC = () => {
     );
   }
 
-  // Ya no necesitas <Router> aquí si está en main.tsx
+
   return (
       <Routes>
-        {/* Rutas que usan el MainLayout (con Header) */}
+        
         <Route element={<MainLayout />}>
           <Route
             path="/"
@@ -99,13 +95,10 @@ const App: React.FC = () => {
           <Route path="/profile" element={<ProtectedRoute><ProfileScreen /></ProtectedRoute>} />
         </Route>
 
-        {/* Rutas que NO usan el MainLayout (sin Header, o con uno diferente) */}
-        {/* Es importante que LoginScreen y RegisterScreen no estén dentro de MainLayout si no deben tener el Header principal */}
+        {/* Rutas que NO usan el MainLayout */}
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegisterScreen />} />
 
-        {/* Podrías tener una ruta catch-all para páginas no encontradas */}
-        {/* <Route path="*" element={<NotFoundScreen />} /> */}
       </Routes>
   );
 };

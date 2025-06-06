@@ -10,6 +10,7 @@ import { FormattedMessage, useIntl, FormattedDate, FormattedNumber } from 'react
 import { useLanguageContext } from '../contexts/LanguageContext'; 
 import logger from '../services/logging';
 
+
 const calculateEndTime = (startTime: string, durationHours: number = 1): string => {
   if (!startTime || !startTime.includes(':')) {
     logger.warn("calculateEndTime: startTime inválido o ausente.", { startTime });
@@ -50,7 +51,7 @@ const BookingConfirmationScreen: React.FC = () => {
 
   const {
     courtIdFromState,
-    courtName: courtNameFromState = intl.formatMessage({ id: "dateTimeSelection.courtUnknown" }), // Usar clave de i18n
+    courtName: courtNameFromState = intl.formatMessage({ id: "dateTimeSelection.courtUnknown" }), 
     date: dateISO = 'N/A',
     time: startTime = 'N/A',
     timeRange = 'N/A',
@@ -61,6 +62,7 @@ const BookingConfirmationScreen: React.FC = () => {
   const courtName = courtNameFromState || (courtId ? `${intl.formatMessage({id: "booking.court"})} ${courtId}` : intl.formatMessage({id: "dateTimeSelection.courtUnknown"}));
   const canProceed = currentUser && courtId && dateISO !== 'N/A' && startTime !== 'N/A' && typeof hourlyRate === 'number';
   const displayDateObject = dateISO !== 'N/A' ? new Date(dateISO + 'T00:00:00Z') : null;
+
 
   useEffect(() => {
     if (!currentUser) {
@@ -90,13 +92,13 @@ const BookingConfirmationScreen: React.FC = () => {
     const endTime = calculateEndTime(startTime, 1);
 
     const bookingDataForService: Omit<Booking, 'id' | 'bookedAt' | 'status'> = {
-      userId: currentUser!.uid, // currentUser está validado por canProceed
-      courtId: courtId!,       // courtId está validado por canProceed
+      userId: currentUser!.uid, 
+      courtId: courtId!,     
       courtName: courtName,
       date: dateISO,
       startTime: startTime,
       endTime: endTime,
-      totalPrice: hourlyRate!, // hourlyRate está validado por canProceed
+      totalPrice: hourlyRate!, 
     };
 
         logger.info("BookingConfirmationScreen: Datos preparados para el servicio de creación de reserva.", { bookingData: bookingDataForService });
@@ -205,7 +207,7 @@ const BookingConfirmationScreen: React.FC = () => {
           {error && (
             <div role="alert" className="flex items-center p-3 space-x-2 text-sm text-red-700 bg-red-100 border border-red-300 rounded-md">
               <FiAlertTriangle size={20} className="shrink-0" />
-              <span>{error}</span> {/* error ya está internacionalizado */}
+              <span>{error}</span> 
             </div>
           )}
 

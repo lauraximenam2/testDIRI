@@ -5,8 +5,8 @@ import Button from '../components/Button';
 import { FiArrowLeft, FiCalendar, FiAlertCircle, FiClock } from 'react-icons/fi';
 import { courtService } from '../services/courtService';
 import type { DailyScheduleData, ScheduleSlotData } from '../models/court';
-import { FormattedMessage, useIntl, FormattedDate } from 'react-intl'; // Importar
-import { useLanguageContext } from '../contexts/LanguageContext'; // Para obtener el locale
+import { FormattedMessage, useIntl, FormattedDate } from 'react-intl'; 
+
 
 interface UITimeSlot {
   timeRange: string;
@@ -19,20 +19,19 @@ const DateTimeSelectionScreen: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const intl = useIntl(); // Hook de internacionalización
-  const { locale } = useLanguageContext(); // Para formatear fechas con el locale actual
+
 
   const initialSelectedDate = location.state?.selectedDate
-    ? new Date(location.state.selectedDate + 'T00:00:00Z') // Tratar como UTC
+    ? new Date(location.state.selectedDate + 'T00:00:00Z') 
     : new Date();
-  initialSelectedDate.setUTCHours(0, 0, 0, 0); // Normalizar a medianoche UTC
+  initialSelectedDate.setUTCHours(0, 0, 0, 0); 
 
-  // Usar intl.formatMessage para el fallback del nombre de la cancha
+
   const courtNameFromState = location.state?.courtName;
   const courtName = courtNameFromState || (courtId
     ? `${intl.formatMessage({ id: "booking.court" })} ${courtId}` // "Cancha X" o "Court X"
     : intl.formatMessage({ id: "dateTimeSelection.courtUnknown" }));
 
-  // hourlyRate pasado desde CourtListScreen o cargado aquí si es necesario
   const hourlyRate = location.state?.hourlyRate || 0;
 
   const [selectedDate, setSelectedDate] = useState<Date>(initialSelectedDate);
@@ -41,7 +40,6 @@ const DateTimeSelectionScreen: React.FC = () => {
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [errorSlots, setErrorSlots] = useState<string | null>(null);
 
-  // FormattedDate se usará en el JSX, aquí mantenemos isoDateString para la lógica
   const isoDateString = selectedDate.toISOString().split('T')[0];
 
   useEffect(() => {
@@ -82,12 +80,12 @@ const DateTimeSelectionScreen: React.FC = () => {
       }
     };
     fetchTimeSlots();
-  }, [selectedDate, courtId, isoDateString, intl]); // Añadir intl a las dependencias
+  }, [selectedDate, courtId, isoDateString, intl]); 
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const dateValue = event.target.value;
     const [year, month, day] = dateValue.split('-').map(Number);
-    const newDate = new Date(Date.UTC(year, month - 1, day)); // Crear como UTC
+    const newDate = new Date(Date.UTC(year, month - 1, day)); 
     const today = new Date();
     today.setUTCHours(0, 0, 0, 0);
     if (newDate >= today) {
@@ -103,6 +101,7 @@ const DateTimeSelectionScreen: React.FC = () => {
     }
   };
 
+  
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <header className="sticky top-0 z-10 flex items-center justify-between p-3 bg-white border-b border-gray-200 shadow-sm sm:p-4 h-14">
@@ -138,7 +137,7 @@ const DateTimeSelectionScreen: React.FC = () => {
               <FormattedMessage id="dateTimeSelection.availableSlotsFor" />{' '}
               <span className="text-primary">
                 <FormattedDate
-                    value={selectedDate} // selectedDate ya es un objeto Date
+                    value={selectedDate} 
                     weekday="long" year="numeric" month="long" day="numeric"
                     timeZone="UTC" // Para mostrar la fecha seleccionada consistentemente como UTC
                 />
@@ -146,8 +145,7 @@ const DateTimeSelectionScreen: React.FC = () => {
             </h3>
             {loadingSlots && (
               <div className="flex items-center justify-center py-10 text-gray-500">
-                {/* SVG Loader */}
-                <svg className="w-8 h-8 mr-3 text-primary animate-spin" /* ... */></svg>
+                <svg className="w-8 h-8 mr-3 text-primary animate-spin"></svg>
                 <FormattedMessage id="dateTimeSelection.loadingSlots" />
               </div>
             )}
@@ -155,7 +153,7 @@ const DateTimeSelectionScreen: React.FC = () => {
               <div className="flex flex-col items-center py-10 text-center text-red-600">
                 <FiAlertCircle size={32} className="mb-2" />
                 <p className="font-semibold"><FormattedMessage id="dateTimeSelection.errorLoadingSlotsTitle" /></p>
-                <p className="text-sm">{errorSlots}</p> {/* errorSlots ya está internacionalizado */}
+                <p className="text-sm">{errorSlots}</p> 
               </div>
             )}
             {!loadingSlots && !errorSlots && uiTimeSlots.length === 0 && (
@@ -175,7 +173,7 @@ const DateTimeSelectionScreen: React.FC = () => {
                     fullWidth
                     className={`py-2.5 sm:py-3 text-sm ${!slot.available ? 'text-gray-400 !border-gray-300 line-through !bg-gray-100 !cursor-not-allowed' : ''} ${selectedTimeSlot?.timeRange === slot.timeRange ? 'ring-2 ring-offset-1 ring-primary-dark' : ''}`}
                   >
-                    {slot.timeRange} {/* Los rangos de hora no suelen traducirse */}
+                    {slot.timeRange} 
                   </Button>
                 ))}
               </div>

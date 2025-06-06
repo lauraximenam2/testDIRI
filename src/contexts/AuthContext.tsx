@@ -1,13 +1,11 @@
 // src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth'; 
-import { auth } from '../../firebase-config'; // Tu instancia de auth
+import { auth } from '../../firebase-config'; 
 
 interface AuthContextType {
   currentUser: User | null;
   loading: boolean;
-  // Aquí podrías añadir roles si los gestionas en tu app después de obtenerlos
-  // roles: string[];
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -27,7 +25,6 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  // const [roles, setRoles] = useState<string[]>([]); // Ejemplo si gestionas roles
 
   useEffect(() => {
     // Escucha cambios en el estado de autenticación de Firebase
@@ -36,8 +33,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setLoading(false);
 
     });
-
-    // Limpiar el observador al desmontar el componente
+  
     return unsubscribe;
   }, []);
 

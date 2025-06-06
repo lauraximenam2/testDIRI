@@ -5,8 +5,8 @@ import { FiLogOut, FiUser, FiList, FiLogIn, FiUserPlus, FiGlobe } from 'react-ic
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase-config';
 import { useAuthContext } from '../contexts/AuthContext';
-import { useLanguageContext } from '../contexts/LanguageContext'; // Importa tu hook
-import { FormattedMessage, useIntl } from 'react-intl'; // Importa FormattedMessage y useIntl
+import { useLanguageContext } from '../contexts/LanguageContext'; 
+import { FormattedMessage, useIntl } from 'react-intl'; 
 
 interface NavItemProps {
   to: string;
@@ -25,7 +25,7 @@ const NavItem: React.FC<NavItemProps> = ({ to, labelId, icon: Icon, show = true 
         className="flex items-center px-3 py-2 text-sm text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-150 ease-in-out sm:px-4"
       >
         {Icon && <Icon size={18} className="mr-1.5 hidden sm:inline" />}
-        <FormattedMessage id={labelId} /> {/* Usar FormattedMessage */}
+        <FormattedMessage id={labelId} /> 
       </Link>
     </li>
   );
@@ -36,8 +36,8 @@ interface HeaderProps {}
 const Header: React.FC<HeaderProps> = () => {
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
-  const { locale, changeLanguage } = useLanguageContext(); // Usa tu contexto de idioma
-  const intl = useIntl(); // Hook para acceder a funciones de formato, etc.
+  const { locale, changeLanguage } = useLanguageContext(); 
+  const intl = useIntl(); 
 
   const handleLogout = async () => {
     try {
@@ -50,7 +50,7 @@ const Header: React.FC<HeaderProps> = () => {
 
   const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newLocale = event.target.value;
-    changeLanguage(newLocale); // Llama a la función del contexto
+    changeLanguage(newLocale); // Llamamos a la función del contexto para cambiar el idioma
   };
 
   return (
@@ -78,7 +78,7 @@ const Header: React.FC<HeaderProps> = () => {
                 value={locale}
                 onChange={handleLanguageChange}
                 className="py-2 pl-3 pr-7 text-sm text-white bg-gray-700 border border-gray-600 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-primary hover:border-gray-500 sm:pl-8"
-                aria-label={intl.formatMessage({ id: "header.selectLanguage" })} // Para accesibilidad
+                aria-label={intl.formatMessage({ id: "header.selectLanguage" })}
               >
                 <option value="es">ES</option>
                 <option value="en">EN</option>

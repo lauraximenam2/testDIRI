@@ -4,7 +4,7 @@ import enMessages from '../lang/en.json';
 
 interface LanguageContextProps {
   locale: string;
-  messages: Record<string, string>; // O Record<string, any> si tienes mensajes complejos
+  messages: Record<string, string>; 
   changeLanguage: (lang: string) => void;
 }
 
@@ -18,7 +18,7 @@ const messagesMap: { [key: string]: Record<string, string> } = {
 export const LanguageContext = createContext<LanguageContextProps>({
   locale: 'es', // Idioma por defecto
   messages: esMessages,
-  changeLanguage: () => {}, // Función vacía por defecto
+  changeLanguage: () => {},
 });
 
 // Proveedor del contexto
@@ -27,9 +27,9 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  // Intenta obtener el idioma del navegador o del localStorage, con 'es' como fallback
+  // Intenta obtener el idioma del navegador o del localStorage
   const getInitialLocale = () => {
-    const browserLang = navigator.language.split('-')[0]; // 'es-ES' -> 'es'
+    const browserLang = navigator.language.split('-')[0]; 
     const storedLang = localStorage.getItem('appLanguage');
     if (storedLang && messagesMap[storedLang]) {
       return storedLang;
@@ -37,13 +37,13 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     if (browserLang && messagesMap[browserLang]) {
       return browserLang;
     }
-    return 'es'; // Fallback a español
+    return 'es'; 
   };
 
   const [locale, setLocale] = useState<string>(getInitialLocale());
 
   useEffect(() => {
-    // Guardar el idioma seleccionado en localStorage para persistencia
+    // Guarda el idioma seleccionado en localStorage para persistencia
     localStorage.setItem('appLanguage', locale);
   }, [locale]);
 
@@ -52,7 +52,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       setLocale(lang);
     } else {
       console.warn(`Language "${lang}" not supported. Falling back to default.`);
-      setLocale('es'); // Fallback si el idioma no es soportado
+      setLocale('es'); 
     }
   };
 
@@ -60,7 +60,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     <LanguageContext.Provider
       value={{
         locale,
-        messages: messagesMap[locale] || esMessages, // Fallback por si acaso
+        messages: messagesMap[locale] || esMessages, 
         changeLanguage,
       }}
     >

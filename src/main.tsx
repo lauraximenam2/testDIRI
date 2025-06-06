@@ -1,40 +1,41 @@
 // src/main.tsx
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App'; // Tu App.tsx
+import App from './App'; 
 import './index.css';
-import { BrowserRouter } from 'react-router-dom'; // Importante: BrowserRouter aquí
+import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { LanguageProvider, useLanguageContext } from './contexts/LanguageContext';
 import { IntlProvider } from 'react-intl';
+import { Provider as ReduxProvider } from 'react-redux'; // Importamos el Provider de Redux
+import store from './redux/store'; 
 
-// Componente intermedio para acceder al contexto del idioma y configurar IntlProvider
-const RootWithIntl: React.FC = () => {
-  const { locale, messages } = useLanguageContext(); // Obtiene locale y messages del LanguageProvider
+
+const RootWithIntlAndRedux: React.FC = () => {
+  const { locale, messages } = useLanguageContext();
 
   return (
-    <IntlProvider
-      locale={locale}
-      messages={messages}
-      onError={(err) => {
-        if (err.code === 'MISSING_TRANSLATION') {
-          // console.warn('Missing translation:', err.message); // Puedes descomentar para debug
-          return;
-        }
-        console.error(err);
-      }}
-    >
-      <App /> {/* App y todos sus hijos ahora están dentro del contexto de IntlProvider */}
-    </IntlProvider>
+    <ReduxProvider store={store}> 
+      <IntlProvider
+        locale={locale}
+        messages={messages}
+        onError={(err) => {
+          if (err.code === 'MISSING_TRANSLATION') return;
+          console.error(err);
+        }}
+      >
+        <App />
+      </IntlProvider>
+    </ReduxProvider>
   );
 };
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter> {/* BrowserRouter envuelve todo para el enrutamiento */}
+    <BrowserRouter>
       <AuthProvider>
-        <LanguageProvider> {/* LanguageProvider provee el idioma y los mensajes */}
-          <RootWithIntl />   {/* RootWithIntl consume eso y configura IntlProvider antes de renderizar App */}
+        <LanguageProvider>
+          <RootWithIntlAndRedux /> 
         </LanguageProvider>
       </AuthProvider>
     </BrowserRouter>

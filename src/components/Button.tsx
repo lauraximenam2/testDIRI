@@ -1,21 +1,20 @@
 // src/components/Button.tsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // Usar Link de react-router-dom para navegación interna
+import { Link } from 'react-router-dom'; 
 
 type ButtonProps = {
   children: React.ReactNode;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void; // Puede ser click en <a> también
+  onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void; 
   variant?: 'primary' | 'secondary' | 'accent' | 'error' | 'outline' | 'ghost' | 'link';
-  type?: 'button' | 'submit' | 'reset'; // Solo aplicable si as='button'
+  type?: 'button' | 'submit' | 'reset'; 
   disabled?: boolean;
   fullWidth?: boolean;
   size?: 'small' | 'medium' | 'large';
-  className?: string; // Para clases adicionales
-  to?: string; // Para react-router-dom Link
-  href?: string; // Para enlaces externos <a> normales
-  as?: 'button' | 'link' | 'a'; // 'link' para react-router, 'a' para href externo
-  // Se pueden añadir otras props de HTMLButtonElement o HTMLAnchorElement si es necesario
-  [x: string]: any; // Para pasar otras props como target, rel, etc.
+  className?: string; 
+  to?: string; 
+  href?: string; 
+  as?: 'button' | 'link' | 'a'; 
+  [x: string]: any; 
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -27,10 +26,10 @@ const Button: React.FC<ButtonProps> = ({
   fullWidth = false,
   size = 'medium',
   className = '',
-  to,         // Para react-router Link
-  href,       // Para <a> normal
-  as,         // Para forzar renderizado como 'a' o 'button'
-  ...props    // Resto de props
+  to,         
+  href,       
+  as,         
+  ...props    
 }) => {
   // Determinar el componente a renderizar
   let Component: React.ElementType = 'button';
@@ -43,13 +42,12 @@ const Button: React.FC<ButtonProps> = ({
   }
 
 
-  // Clases base comunes a todos los botones (excepto quizás 'link' puro)
   const baseClasses: string[] = [
     "inline-flex items-center justify-center",
-    "font-medium focus:outline-none rounded-md", // Ajusta rounded-md, rounded-lg, etc. según tu DS
-    "transition-all duration-150 ease-in-out", // Transiciones más completas
+    "font-medium focus:outline-none rounded-md", 
+    "transition-all duration-150 ease-in-out",
     disabled ? "opacity-60 cursor-not-allowed" : "cursor-pointer",
-    "focus-visible:ring-2 focus-visible:ring-offset-2", // Anillo de foco
+    "focus-visible:ring-2 focus-visible:ring-offset-2", 
   ];
 
   // Clases específicas de la variante

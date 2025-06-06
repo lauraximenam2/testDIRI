@@ -10,8 +10,8 @@ import {
 import { useAuthContext } from '../contexts/AuthContext';
 import { bookingService } from '../services/bookingService';
 import type { Booking } from '../models/booking';
-import { FormattedMessage, useIntl, FormattedDate } from 'react-intl'; // Importar
-import { useLanguageContext } from '../contexts/LanguageContext'; // Para el locale
+import { FormattedMessage, useIntl, FormattedDate } from 'react-intl'; 
+import { useLanguageContext } from '../contexts/LanguageContext'; 
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -40,7 +40,7 @@ const MyBookingsScreen: React.FC = () => {
     }
   }, [location.state]);
 
-  const fetchUserBookings = React.useCallback(async () => { // useCallback para evitar re-creación si intl no cambia
+  const fetchUserBookings = React.useCallback(async () => { 
     if (!currentUser) {
       setLoading(false);
       setError(intl.formatMessage({ id: "myBookings.error.mustBeLoggedIn" }));
@@ -55,11 +55,11 @@ const MyBookingsScreen: React.FC = () => {
       const today = new Date();
       today.setUTCHours(0, 0, 0, 0);
       const upcoming = allUserBookings.filter(b => {
-        const bookingDate = new Date(b.date + 'T00:00:00Z'); // Tratar como UTC
+        const bookingDate = new Date(b.date + 'T00:00:00Z'); 
         return b.status === 'Confirmada' && bookingDate >= today;
       });
       const history = allUserBookings.filter(b => {
-        const bookingDate = new Date(b.date + 'T00:00:00Z'); // Tratar como UTC
+        const bookingDate = new Date(b.date + 'T00:00:00Z'); 
         return b.status !== 'Confirmada' || bookingDate < today;
       });
       setUpcomingBookings(upcoming);
@@ -70,19 +70,17 @@ const MyBookingsScreen: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [currentUser, intl]); // Añadir intl a dependencias
+  }, [currentUser, intl]); 
 
   useEffect(() => {
     fetchUserBookings();
-  }, [fetchUserBookings]); // Depender de la función memoizada
+  }, [fetchUserBookings]); 
 
-  // Función formatDate ya no es necesaria si usamos <FormattedDate /> directamente
-  // const formatDate = (dateString: string) => { ... };
 
   const handleCancelBooking = async (booking: Booking) => {
     if (!currentUser || !booking.id) return;
 
-    // Formatear fecha para el prompt de confirmación
+    // Formateamos fecha para el prompt de confirmación
     const dateForPrompt = new Date(booking.date + 'T00:00:00Z');
     const formattedDateForPrompt = new Intl.DateTimeFormat(locale, {
         year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
@@ -110,9 +108,9 @@ const MyBookingsScreen: React.FC = () => {
     }
   };
 
-  // getStatusInfo ahora usa intl para las etiquetas
+
   const getStatusInfo = (status: Booking['status']): { icon: React.ElementType, badgeClass: string, label: string } => {
-    const statusKey = `myBookings.status.${status || 'Unknown'}` as const; // Para asegurar que la clave es válida
+    const statusKey = `myBookings.status.${status || 'Unknown'}` as const; 
     const label = intl.formatMessage({ id: statusKey, defaultMessage: status || intl.formatMessage({id: "myBookings.status.Unknown"}) });
 
     switch (status) {
@@ -127,7 +125,7 @@ const MyBookingsScreen: React.FC = () => {
     if (loading) {
       return (
         <div className="flex flex-col items-center justify-center py-20 text-gray-500">
-          <svg className="w-10 h-10 mb-3 text-primary animate-spin" /* ... */></svg>
+          <svg className="w-10 h-10 mb-3 text-primary animate-spin"></svg>
           <FormattedMessage id="myBookings.loading" />
         </div>
       );
@@ -136,7 +134,7 @@ const MyBookingsScreen: React.FC = () => {
       return (
         <div className="py-10 text-center text-red-600">
           <FiAlertCircle size={40} className="mx-auto mb-4" />
-          <p className="mb-4 font-semibold">{error}</p> {/* error ya está internacionalizado */}
+          <p className="mb-4 font-semibold">{error}</p> 
           <Button variant="outline" onClick={fetchUserBookings} className="inline-flex items-center space-x-2">
             <FiRefreshCw size={16} />
             <span><FormattedMessage id="myBookings.retryButton" /></span>
@@ -174,7 +172,7 @@ const MyBookingsScreen: React.FC = () => {
                     <FiCalendar size={15} className="mr-1.5 text-gray-500 shrink-0" />
                     <span className="mr-3">
                         <FormattedDate
-                            value={new Date(booking.date + 'T00:00:00Z')} // Tratar como UTC
+                            value={new Date(booking.date + 'T00:00:00Z')} 
                             year="numeric" month="long" day="numeric" timeZone="UTC"
                         />
                     </span>
@@ -184,7 +182,7 @@ const MyBookingsScreen: React.FC = () => {
                 </div>
                 <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap mt-2 sm:mt-0 ${statusInfo.badgeClass}`}>
                   <statusInfo.icon size={14} className="mr-1 -ml-0.5" />
-                  {statusInfo.label} {/* Label ya está internacionalizado desde getStatusInfo */}
+                  {statusInfo.label} 
                 </span>
               </div>
               {booking.status === 'Confirmada' && listType === 'upcoming' && (
@@ -240,7 +238,7 @@ const MyBookingsScreen: React.FC = () => {
                   selected ? 'bg-primary text-white shadow' : 'text-gray-700 hover:bg-white/[0.7] hover:text-primary'
                 )}
               >
-                {category.name} {/* Nombre de la pestaña ya internacionalizado */}
+                {category.name} 
               </Tab>
             ))}
           </Tab.List>

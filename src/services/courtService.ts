@@ -1,5 +1,5 @@
 // src/services/courtService.ts
-import { db } from '../../firebase-config'; // Ajusta la ruta si firebase-config.ts está en otra parte
+import { db } from '../../firebase-config'; 
 import {
   ref,
   get,
@@ -8,7 +8,7 @@ import {
   onValue,
   off
 } from 'firebase/database';
-import type { Court, DailyScheduleData, ScheduleSlotData } from '../models/court'; // Asegúrate que estas interfaces están bien definidas
+import type { Court, DailyScheduleData, ScheduleSlotData } from '../models/court'; 
 
 const courtsRefPath = 'courts';
 
@@ -21,6 +21,8 @@ export const courtService = {
    * @param onError Función a llamar si ocurre un error al escuchar los datos.
    * @returns Una función para desuscribirse del listener de Firebase.
    */
+
+  
   onCourtsAndSchedulesChange: (
     selectedDateISO: string,
     callback: (courtsWithAvailability: Court[]) => void,
@@ -34,7 +36,7 @@ export const courtService = {
         if (snapshot.exists()) {
           const courtsData = snapshot.val();
           const courtsArray: Court[] = Object.keys(courtsData).map(key => {
-            // Es importante asegurarse de que el objeto de la DB coincide con la interfaz Court
+            
             const courtFromDB = courtsData[key];
             const court: Court = {
               id: key,
@@ -43,12 +45,12 @@ export const courtService = {
               surface: courtFromDB.surface || 'Superficie no especificada',
               img: courtFromDB.img,
               hourlyRate: courtFromDB.hourlyRate,
-              schedules: courtFromDB.schedules, // Mantener la estructura de schedules
-              // Los campos calculados se añaden a continuación
+              schedules: courtFromDB.schedules, 
+            
             };
 
             let availableSlotsCount = 0;
-            // Acceder al schedule del día específico y asegurarse de que es del tipo correcto
+            // Accedemos al schedule del día específico y asegurarse de que es del tipo correcto
             const dailySchedule: DailyScheduleData | undefined = court.schedules?.[selectedDateISO];
 
             if (dailySchedule) {
@@ -67,9 +69,9 @@ export const courtService = {
           callback([]); // No hay canchas o el nodo no existe
         }
       },
-      (error) => { // Manejador de error para onValue
+      (error) => { 
         console.error("Firebase onValue error en onCourtsAndSchedulesChange:", error);
-        onError(new Error("Error al leer datos de canchas en tiempo real.")); // Pasar un objeto Error
+        onError(new Error("Error al leer datos de canchas en tiempo real.")); 
       }
     );
 
@@ -78,7 +80,7 @@ export const courtService = {
   },
 
   /**
-   * Obtiene los horarios específicos para una cancha y una fecha dada.
+   * Obtenemos los horarios específicos para una cancha y una fecha dada.
    */
   getCourtScheduleForDate: async (courtId: string, dateISO: string): Promise<DailyScheduleData | null> => {
     const scheduleRef = ref(db, `${courtsRefPath}/${courtId}/schedules/${dateISO}`);
@@ -87,12 +89,12 @@ export const courtService = {
       return snapshot.exists() ? snapshot.val() as DailyScheduleData : null;
     } catch (error) {
       console.error(`Error obteniendo horarios para cancha ${courtId} en fecha ${dateISO}:`, error);
-      throw error; // Relanzar para que el componente lo maneje
+      throw error; 
     }
   },
 
-  /**
-   * Añade una nueva cancha a la base de datos.
+  /** Esto no lo implementamos ya que no tenemos rol de admin para crear canchas, pero agregamos un poco la lógica para futuras mjoras
+   * Añadimos una nueva cancha a la base de datos.
    * Los campos calculados como tempAvailabilitySummary no se guardan.
    */
   addCourt: async (courtData: Omit<Court, 'id' | 'tempAvailabilitySummary' | 'isGenerallyAvailableOnSelectedDate'>): Promise<string> => {
@@ -108,15 +110,10 @@ export const courtService = {
   },
 
   /**
-   * Busca canchas por nombre (filtrado del lado del cliente para 'contains').
-   * Realtime Database tiene capacidades de query limitadas para 'contains'.
-   * Para búsquedas más potentes, considera Firestore o servicios de búsqueda externos.
+   * Busca canchas por nombre 
    */
   findCourtsByName: async (nameQuery: string): Promise<Court[]> => {
     const courtsNodeRef = ref(db, courtsRefPath);
-    // Para Realtime DB, la forma más simple de hacer un "contains" es traer todos los datos
-    // y filtrar en el cliente, o usar queries más complejas con startAt/endAt si la estructura lo permite.
-    // Aquí, obtendremos todos y filtraremos.
     try {
       const snapshot = await get(courtsNodeRef);
       if (snapshot.exists()) {

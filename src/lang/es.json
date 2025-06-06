@@ -49,7 +49,7 @@
   "login.registerHere": "Regístrate aquí",
   "login.error.generic": "Error al iniciar sesión. Verifica tus credenciales.",
   "login.loading": "Iniciando sesión...",
-    "register.title": "Crea tu Cuenta",
+  "register.title": "Crea tu Cuenta",
   "register.nameLabel": "Nombre Completo",
   "register.namePlaceholder": "Nombre Completo",
   "register.emailLabel": "Email",
@@ -150,7 +150,13 @@
   "booking.duration.default": "1 hora", 
   "booking.price.unavailable": "Precio no disponible",
   "booking.date.unavailable": "Fecha no disponible",
-  "booking.time.unavailable": "Hora no disponible"
+  "booking.time.unavailable": "Hora no disponible",
+  "profile.myBookings": "Mis Reservas",
+  "profile.logoutButton": "Cerrar Sesión",
+  "profile.logoutConfirm": "¿Estás seguro de que quieres cerrar sesión?",
+  "profile.logoutError": "Error al cerrar sesión. Por favor, inténtalo de nuevo.",
+  "profile.emailUnavailable": "Email no disponible",
+  "profile.avatarAlt": "Avatar de {name}"
 
 
 
