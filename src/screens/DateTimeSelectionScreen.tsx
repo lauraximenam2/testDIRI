@@ -1,12 +1,16 @@
 // src/screens/DateTimeSelectionScreen.tsx
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom'; 
-import Button from '../components/Button'; 
-import { FiArrowLeft, FiCalendar, FiAlertCircle } from 'react-icons/fi';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import Button from '../components/Button';
+import { FiArrowLeft, FiCalendar, FiAlertCircle, FiClock } from 'react-icons/fi';
+import { courtService } from '../services/courtService';
+import type { DailyScheduleData, ScheduleSlotData } from '../models/court';
+import { FormattedMessage, useIntl, FormattedDate } from 'react-intl'; // Importar
+import { useLanguageContext } from '../contexts/LanguageContext'; // Para obtener el locale
 
-// Interfaz para TimeSlot
-interface TimeSlot {
-  time: string;
+interface UITimeSlot {
+  timeRange: string;
+  startTime: string;
   available: boolean;
 }
 
@@ -14,132 +18,164 @@ const DateTimeSelectionScreen: React.FC = () => {
   const { courtId } = useParams<{ courtId: string }>();
   const navigate = useNavigate();
   const location = useLocation();
-  const courtName = location.state?.courtName || `Cancha ${courtId}`;
+  const intl = useIntl(); // Hook de internacionalización
+  const { locale } = useLanguageContext(); // Para formatear fechas con el locale actual
 
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
+  const initialSelectedDate = location.state?.selectedDate
+    ? new Date(location.state.selectedDate + 'T00:00:00Z') // Tratar como UTC
+    : new Date();
+  initialSelectedDate.setUTCHours(0, 0, 0, 0); // Normalizar a medianoche UTC
+
+  // Usar intl.formatMessage para el fallback del nombre de la cancha
+  const courtNameFromState = location.state?.courtName;
+  const courtName = courtNameFromState || (courtId
+    ? `${intl.formatMessage({ id: "booking.court" })} ${courtId}` // "Cancha X" o "Court X"
+    : intl.formatMessage({ id: "dateTimeSelection.courtUnknown" }));
+
+  // hourlyRate pasado desde CourtListScreen o cargado aquí si es necesario
+  const hourlyRate = location.state?.hourlyRate || 0;
+
+  const [selectedDate, setSelectedDate] = useState<Date>(initialSelectedDate);
+  const [uiTimeSlots, setUiTimeSlots] = useState<UITimeSlot[]>([]);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<UITimeSlot | null>(null);
   const [loadingSlots, setLoadingSlots] = useState(false);
+  const [errorSlots, setErrorSlots] = useState<string | null>(null);
 
-  // Formatear la fecha seleccionada para mostrarla al usuario
-  const formattedSelectedDate = selectedDate.toLocaleDateString('es-ES', {
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-  });
-  // Formatear la fecha para el input type="date" (YYYY-MM-DD)
+  // FormattedDate se usará en el JSX, aquí mantenemos isoDateString para la lógica
   const isoDateString = selectedDate.toISOString().split('T')[0];
 
-  // Cargar slots al cambiar la fecha o el courtId
   useEffect(() => {
-    setLoadingSlots(true);
-    setSelectedTimeSlot(null); // Resetear selección al cambiar fecha
-    // --- Simulación de llamada API para obtener slots ---
-    setTimeout(() => {
-      const fetchedSlots: TimeSlot[] = [
-        { time: "09:00 - 10:00", available: true }, { time: "10:00 - 11:00", available: true },
-        { time: "11:00 - 12:00", available: false }, { time: "12:00 - 13:00", available: true },
-        { time: "13:00 - 14:00", available: false }, { time: "16:00 - 17:00", available: true },
-        { time: "17:00 - 18:00", available: true },
-      ];
-      setTimeSlots(fetchedSlots);
-      setLoadingSlots(false);
-    }, 300);
-  }, [selectedDate, courtId]);
+    if (!courtId) {
+      setErrorSlots(intl.formatMessage({ id: "dateTimeSelection.error.courtIdMissing" }));
+      setUiTimeSlots([]);
+      return;
+    }
+    const fetchTimeSlots = async () => {
+      setLoadingSlots(true);
+      setSelectedTimeSlot(null);
+      setErrorSlots(null);
+      try {
+        const dailyScheduleData: DailyScheduleData | null = await courtService.getCourtScheduleForDate(courtId, isoDateString);
+        if (dailyScheduleData) {
+          const slots: UITimeSlot[] = Object.entries(dailyScheduleData)
+            .map(([startTime, slotData]: [string, ScheduleSlotData]) => {
+              const startHour = parseInt(startTime.split(':')[0]);
+              const endHour = startHour + 1;
+              const endTime = `${endHour.toString().padStart(2, '0')}:00`;
+              return {
+                startTime: startTime,
+                timeRange: `${startTime} - ${endTime}`,
+                available: slotData.status === 'available',
+              };
+            })
+            .sort((a, b) => a.startTime.localeCompare(b.startTime));
+          setUiTimeSlots(slots);
+        } else {
+          setUiTimeSlots([]);
+        }
+      } catch (err: any) {
+        console.error("Error fetching time slots:", err);
+        setErrorSlots(err.message || intl.formatMessage({ id: "dateTimeSelection.errorLoadingSlotsDefault" }));
+        setUiTimeSlots([]);
+      } finally {
+        setLoadingSlots(false);
+      }
+    };
+    fetchTimeSlots();
+  }, [selectedDate, courtId, isoDateString, intl]); // Añadir intl a las dependencias
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const dateValue = event.target.value; // YYYY-MM-DD
+    const dateValue = event.target.value;
     const [year, month, day] = dateValue.split('-').map(Number);
-    const newDate = new Date(Date.UTC(year, month - 1, day)); 
-
+    const newDate = new Date(Date.UTC(year, month - 1, day)); // Crear como UTC
     const today = new Date();
-    today.setUTCHours(0, 0, 0, 0); // Comparar con UTC hoy
-
+    today.setUTCHours(0, 0, 0, 0);
     if (newDate >= today) {
       setSelectedDate(newDate);
     } else {
-      alert("No puedes seleccionar una fecha pasada.");
+      alert(intl.formatMessage({ id: "dateTimeSelection.alert.pastDate" }));
     }
   };
 
-  const handleTimeSelect = (slot: TimeSlot) => {
+  const handleTimeSelect = (slot: UITimeSlot) => {
     if (slot.available) {
-      setSelectedTimeSlot(slot.time === selectedTimeSlot ? null : slot.time); 
+      setSelectedTimeSlot(selectedTimeSlot?.timeRange === slot.timeRange ? null : slot);
     }
   };
 
   return (
-    // Contenedor principal de la pantalla
     <div className="flex flex-col min-h-screen bg-gray-100">
-      {/* Header de la Pantalla */}
       <header className="sticky top-0 z-10 flex items-center justify-between p-3 bg-white border-b border-gray-200 shadow-sm sm:p-4 h-14">
-        <Button
-          variant='ghost'
-          size='small'
-          onClick={() => navigate(-1)}
-          className="!p-1.5 sm:!p-2 text-gray-600 hover:text-gray-900"
-          aria-label="Volver"
-        >
+        <Button variant='ghost' size='small' onClick={() => navigate(-1)} className="!p-1.5 sm:!p-2 text-gray-600 hover:text-gray-900" aria-label={intl.formatMessage({ id: "general.back" })}>
           <FiArrowLeft size={22} strokeWidth={2} />
         </Button>
         <h2 className="flex-grow text-lg font-semibold text-center text-gray-800 truncate sm:text-xl">
-          Selecciona Fecha y Hora
+          <FormattedMessage id="dateTimeSelection.title" />
         </h2>
-        <div className="min-w-[40px] sm:min-w-[50px]"></div> 
+        <div className="min-w-[40px] sm:min-w-[50px]"></div>
       </header>
 
-      {/* Contenido Principal */}
       <main className={`flex-grow p-4 sm:p-6 ${selectedTimeSlot ? 'pb-28 sm:pb-32' : 'pb-6'}`}>
         <div className="max-w-2xl mx-auto space-y-6">
           <p className="text-center text-gray-700">
-            Estás reservando para: <strong className="text-primary">{courtName}</strong>
+            <FormattedMessage id="dateTimeSelection.bookingFor" /> <strong className="text-primary">{courtName}</strong>
           </p>
 
-          {/* Selector de Fecha */}
           <div className="p-4 bg-white border border-gray-200 rounded-lg shadow">
             <label htmlFor="date-selector" className="flex items-center mb-2 text-sm font-medium text-gray-700">
               <FiCalendar size={18} className="mr-2 text-accent" />
-              Selecciona una fecha:
+              <FormattedMessage id="dateTimeSelection.selectDateLabel" />
             </label>
             <input
-              id="date-selector"
-              type="date"
-              value={isoDateString}
-              onChange={handleDateChange}
-              min={new Date().toISOString().split('T')[0]} // Mínimo hoy
+              id="date-selector" type="date" value={isoDateString} onChange={handleDateChange}
+              min={new Date().toISOString().split('T')[0]} // Mantiene el formato YYYY-MM-DD
               className="block w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
             />
           </div>
 
-          {/* Selector de Horario */}
           <div className="p-4 bg-white border border-gray-200 rounded-lg shadow">
-            <h3 className="mb-3 text-md font-semibold text-gray-700">
-              Horarios disponibles para el <span className="text-primary">{formattedSelectedDate}</span>
+            <h3 className="mb-3 font-semibold text-gray-700 text-md">
+              <FormattedMessage id="dateTimeSelection.availableSlotsFor" />{' '}
+              <span className="text-primary">
+                <FormattedDate
+                    value={selectedDate} // selectedDate ya es un objeto Date
+                    weekday="long" year="numeric" month="long" day="numeric"
+                    timeZone="UTC" // Para mostrar la fecha seleccionada consistentemente como UTC
+                />
+              </span>
             </h3>
             {loadingSlots && (
-              <div className="flex items-center justify-center py-4 text-gray-500">
-                <svg className="w-5 h-5 mr-2 animate-spin text-primary"  ></svg>
-                Cargando horarios...
+              <div className="flex items-center justify-center py-10 text-gray-500">
+                {/* SVG Loader */}
+                <svg className="w-8 h-8 mr-3 text-primary animate-spin" /* ... */></svg>
+                <FormattedMessage id="dateTimeSelection.loadingSlots" />
               </div>
             )}
-            {!loadingSlots && timeSlots.length === 0 && (
-              <div className="flex flex-col items-center py-4 text-center text-gray-500">
-                <FiAlertCircle size={32} className="mb-2 text-gray-400"/>
-                No hay horarios disponibles para este día.
+            {!loadingSlots && errorSlots && (
+              <div className="flex flex-col items-center py-10 text-center text-red-600">
+                <FiAlertCircle size={32} className="mb-2" />
+                <p className="font-semibold"><FormattedMessage id="dateTimeSelection.errorLoadingSlotsTitle" /></p>
+                <p className="text-sm">{errorSlots}</p> {/* errorSlots ya está internacionalizado */}
               </div>
             )}
-            {!loadingSlots && timeSlots.length > 0 && (
+            {!loadingSlots && !errorSlots && uiTimeSlots.length === 0 && (
+              <div className="flex flex-col items-center py-10 text-center text-gray-500">
+                <FiClock size={32} className="mb-2 text-gray-400" />
+                <FormattedMessage id="dateTimeSelection.noSlotsAvailable" />
+              </div>
+            )}
+            {!loadingSlots && !errorSlots && uiTimeSlots.length > 0 && (
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-                {timeSlots.map((slot) => (
+                {uiTimeSlots.map((slot) => (
                   <Button
-                    key={slot.time}
-                    variant={selectedTimeSlot === slot.time ? 'primary' : (slot.available ? 'outline' : 'ghost')}
+                    key={slot.timeRange}
+                    variant={selectedTimeSlot?.timeRange === slot.timeRange ? 'primary' : (slot.available ? 'outline' : 'ghost')}
                     onClick={() => handleTimeSelect(slot)}
                     disabled={!slot.available}
                     fullWidth
-                    className={`py-2.5 sm:py-3 text-sm 
-                                ${!slot.available ? 'text-gray-400 !border-gray-300 line-through !bg-gray-100' : ''}
-                                ${selectedTimeSlot === slot.time ? 'ring-2 ring-offset-1 ring-primary-dark' : ''}`}
+                    className={`py-2.5 sm:py-3 text-sm ${!slot.available ? 'text-gray-400 !border-gray-300 line-through !bg-gray-100 !cursor-not-allowed' : ''} ${selectedTimeSlot?.timeRange === slot.timeRange ? 'ring-2 ring-offset-1 ring-primary-dark' : ''}`}
                   >
-                    {slot.time}
+                    {slot.timeRange} {/* Los rangos de hora no suelen traducirse */}
                   </Button>
                 ))}
               </div>
@@ -148,21 +184,32 @@ const DateTimeSelectionScreen: React.FC = () => {
         </div>
       </main>
 
-      {/* Resumen y Botón Continuarj */}
       {selectedTimeSlot && (
         <div className="fixed bottom-0 left-0 right-0 z-20 p-4 bg-white border-t border-gray-200 shadow-top-md sm:p-6">
           <div className="flex flex-col items-center max-w-md mx-auto space-y-3 sm:flex-row sm:justify-between sm:space-y-0">
             <p className="text-sm text-center text-gray-700 sm:text-left">
-              Seleccionado: <strong className="text-primary">{formattedSelectedDate}</strong>
-              <br className="sm:hidden" /> a las <strong className="text-primary">{selectedTimeSlot}</strong>
+              <FormattedMessage id="dateTimeSelection.selectedInfo" />{' '}
+              <strong className="text-primary">
+                <FormattedDate
+                    value={selectedDate}
+                    weekday="long" year="numeric" month="long" day="numeric"
+                    timeZone="UTC"
+                />
+              </strong>
+              <br className="sm:hidden" />{' '}
+              <FormattedMessage id="dateTimeSelection.selectedInfo.from" />{' '}
+              <strong className="text-primary">{selectedTimeSlot.timeRange}</strong>
             </p>
             <Button
               variant="primary"
               size="large"
-              onClick={() => navigate(`/courts/${courtId}/confirm`, { state: { courtName: courtName, date: isoDateString, time: selectedTimeSlot } })}
+              onClick={() => navigate(
+                `/courts/${courtId}/confirm`,
+                { state: { courtId: courtId, courtName: courtName, date: isoDateString, time: selectedTimeSlot.startTime, timeRange: selectedTimeSlot.timeRange, hourlyRate: hourlyRate } }
+              )}
               className="w-full sm:w-auto shadow-md"
             >
-              Continuar Reserva
+              <FormattedMessage id="dateTimeSelection.continueBookingButton" />
             </Button>
           </div>
         </div>

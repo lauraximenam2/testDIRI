@@ -1,10 +1,10 @@
 // src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { onAuthStateChanged, FirebaseUser } from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth'; 
 import { auth } from '../../firebase-config'; // Tu instancia de auth
 
 interface AuthContextType {
-  currentUser: FirebaseUser | null;
+  currentUser: User | null;
   loading: boolean;
   // Aquí podrías añadir roles si los gestionas en tu app después de obtenerlos
   // roles: string[];
@@ -25,7 +25,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   // const [roles, setRoles] = useState<string[]>([]); // Ejemplo si gestionas roles
 

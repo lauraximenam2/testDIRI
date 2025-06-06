@@ -1,180 +1,170 @@
 // src/screens/CourtListScreen.tsx
-/* eslint-disable @typescript-eslint/no-unused-vars */ // Puedes quitar esto si ya no es necesario
-import React, { useState, useEffect, Fragment } from 'react'; // Fragment para Transition de Headless UI
-import { useNavigate } from 'react-router-dom'; // Link no se usa directamente aquí
-import Button from '../components/Button'; // Tu componente Button con Tailwind
-import { Dialog, Transition } from '@headlessui/react'; // Para el modal de filtros 
+import React, { useState, useEffect, Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button';
+import { Dialog, Transition } from '@headlessui/react';
 import {
-  FiArrowLeft,
-  FiFilter,
-  FiMapPin,
-  FiTag,
-  FiClock,
-  FiDollarSign,
-  FiInfo,
-  FiX, // Para el botón de cerrar modal
-  FiCalendar // Para el icono de fecha en el modal
+  FiArrowLeft, FiFilter, FiMapPin, FiTag, FiClock,
+  FiDollarSign, FiInfo, FiX, FiCalendar, FiSearch, FiAlertCircle
 } from 'react-icons/fi';
+import { courtService } from '../services/courtService';
+import type { Court } from '../models/court';
+import { FormattedMessage, useIntl, FormattedNumber } from 'react-intl'; // Importar
 
-// Interfaz para el tipo de dato de Cancha
-interface Court {
-  id: number;
-  name: string;
-  location: string;
-  surface: string;
-  availability: string;
-  img: string;
+// Función helper para concatenar clases (sin cambios)
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(' ');
 }
 
 const CourtListScreen: React.FC = () => {
   const navigate = useNavigate();
-  const [courts, setCourts] = useState<Court[]>([]);
+  const intl = useIntl(); // Hook de internacionalización
+
+  const [allCourts, setAllCourts] = useState<Court[]>([]);
+  const [filteredCourts, setFilteredCourts] = useState<Court[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().substring(0, 10));
-  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false); // Estado para el modal de filtros
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [filterSurface, setFilterSurface] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showOnlyAvailable, setShowOnlyAvailable] = useState(false);
 
-  // Estado para los filtros dentro del modal (ejemplo)
-  const [filterSurface, setFilterSurface] = useState<string>(''); // '' para todas
-  const [filterTimeOfDay, setFilterTimeOfDay] = useState<string>(''); // '' para todos
-
-  function closeModal() {
-    setIsFilterModalOpen(false);
-  }
-  function openModal() {
-    setIsFilterModalOpen(true);
-  }
-
-  // Simulación de carga de datos y filtrado
   useEffect(() => {
     setLoading(true);
-    console.log("Cargando canchas para fecha:", selectedDate, "Superficie:", filterSurface, "Horario:", filterTimeOfDay);
-    // --- Simular llamada API ---
-    setTimeout(() => {
-      let fetchedCourts: Court[] = [
-        { id: 1, name: "Cancha Central", location: "Club Principal", surface: "Tierra Batida", availability: "5 horarios", img: "/placeholder-court1.jpg" },
-        { id: 2, name: "Pista Rápida 1", location: "Anexo Norte", surface: "Dura", availability: "Desde €15/hora", img: "/placeholder-court2.jpg" },
-        { id: 3, name: "Pista Césped", location: "Club Principal", surface: "Césped Sintético", availability: "3 horarios", img: "/placeholder-court3.jpg" },
-        { id: 4, name: "Indoor 1", location: "Pabellón Cubierto", surface: "Indoor", availability: "Desde €20/hora", img: "/placeholder-court4.jpg" },
-        { id: 5, name: "Pista de Tierra 2", location: "Club Principal", surface: "Tierra Batida", availability: "Abierta", img: "/placeholder-court5.jpg" },
-      ];
-
-      // Simular filtrado (esto normalmente lo haría el backend)
-      if (filterSurface) {
-        fetchedCourts = fetchedCourts.filter(court => court.surface === filterSurface);
+    setError(null);
+    const unsubscribe = courtService.onCourtsAndSchedulesChange(
+      selectedDate,
+      (courtsWithAvailability) => {
+        setAllCourts(courtsWithAvailability);
+        setLoading(false);
+      },
+      (fetchError) => {
+        console.error("Error al obtener canchas en tiempo real:", fetchError);
+        setError(intl.formatMessage({ id: "courtList.errorLoading" }));
+        setAllCourts([]);
+        setLoading(false);
       }
-      // Aquí podrías añadir más lógica de filtrado por filterTimeOfDay si lo implementas
+    );
+    return () => unsubscribe();
+  }, [selectedDate, intl]); // Añadir intl a las dependencias
 
-      setCourts(fetchedCourts);
-      setLoading(false);
-    }, 500);
-  }, [selectedDate, filterSurface, filterTimeOfDay]); // Recargar al cambiar filtros
+  useEffect(() => {
+    let courtsToDisplay = [...allCourts];
+    if (searchTerm) {
+      const lowerSearchTerm = searchTerm.toLowerCase();
+      courtsToDisplay = courtsToDisplay.filter(court =>
+        court.name.toLowerCase().includes(lowerSearchTerm) ||
+        (court.location && court.location.toLowerCase().includes(lowerSearchTerm))
+      );
+    }
+    if (filterSurface) {
+      courtsToDisplay = courtsToDisplay.filter(court => court.surface === filterSurface);
+    }
+    if (showOnlyAvailable) {
+      courtsToDisplay = courtsToDisplay.filter(court => court.isGenerallyAvailableOnSelectedDate === true);
+    }
+    setFilteredCourts(courtsToDisplay);
+  }, [allCourts, searchTerm, filterSurface, showOnlyAvailable]);
 
-  const getAvailabilityIcon = (availabilityText: string) => {
-    if (availabilityText.toLowerCase().includes('hora')) return <FiDollarSign size={14} className="text-green-600" aria-hidden="true" />;
-    if (availabilityText.toLowerCase().includes('horario')) return <FiClock size={14} className="text-blue-600" aria-hidden="true" />;
-    return <FiInfo size={14} className="text-gray-500" aria-hidden="true" />;
+  const closeModal = () => setIsFilterModalOpen(false);
+  const openModal = () => setIsFilterModalOpen(true);
+
+  const getAvailabilityDisplay = (court: Court) => {
+
+    if (court.tempAvailabilitySummary) {
+        const summaryText = court.tempAvailabilitySummary.toLowerCase();
+        let iconColor = "text-gray-500";
+        let textToDisplay = court.tempAvailabilitySummary; // Usar el texto directamente si no hay lógica de pluralización compleja
+
+        if (summaryText.includes('libre') || summaryText.includes('free')) {
+            iconColor = "text-green-600";
+            // Para pluralización necesitarías algo como:
+            // textToDisplay = intl.formatMessage({ id: "courtList.availability.free" }, { count: court.availableSlotsCount });
+        } else if (summaryText.includes('completa') || summaryText.includes('pocos') || summaryText.includes('few') || summaryText.includes('full')) {
+            iconColor = "text-orange-500";
+            // textToDisplay = intl.formatMessage({ id: summaryText.includes('pocos') || summaryText.includes('few') ? "courtList.availability.few" : "courtList.availability.full" });
+        }
+        return <><FiClock size={14} className={iconColor} aria-hidden="true" /> {textToDisplay}</>;
+    }
+    if (court.hourlyRate) {
+      return <>
+        <FiDollarSign size={14} className="text-green-600" aria-hidden="true" />{' '}
+        <FormattedMessage id="courtList.priceFrom" values={{ rate: <FormattedNumber value={court.hourlyRate} style="decimal" minimumFractionDigits={0} maximumFractionDigits={0} /> }} />
+      </>;
+    }
+    return <><FiInfo size={14} className="text-gray-500" aria-hidden="true" /> <FormattedMessage id="courtList.availability.consult" /></>;
   };
 
-  const handleApplyFilters = () => {
-    // La lógica de recarga ya está en useEffect, así que solo cerramos el modal.
-    // Si los filtros se aplicaran de otra forma, aquí iría esa lógica.
+  const handleApplyFilters = () => closeModal();
+  const handleClearFilters = () => {
+    setFilterSurface('');
+    setSearchTerm('');
+    setShowOnlyAvailable(false);
     closeModal();
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 pb-16"> {/* page-container y padding para BottomNav */}
-      {/* Header de la Pantalla */}
+    <div className="flex flex-col min-h-screen bg-gray-100 pb-16">
       <header className="sticky top-0 z-20 flex items-center justify-between p-3 bg-white border-b border-gray-200 shadow-sm sm:p-4 h-14">
-        <Button
-          variant='ghost'
-          size='small'
-          onClick={() => navigate(-1)}
-          className="!p-1.5 sm:!p-2 text-gray-600 hover:text-gray-900"
-          aria-label="Volver"
-        >
+        <Button variant='ghost' size='small' onClick={() => navigate(-1)} className="!p-1.5 sm:!p-2 text-gray-600 hover:text-gray-900" aria-label={intl.formatMessage({id: "general.back"})}>
           <FiArrowLeft size={22} strokeWidth={2} />
         </Button>
         <h2 className="flex-grow text-lg font-semibold text-center text-gray-800 truncate sm:text-xl">
-          Canchas Disponibles
+          <FormattedMessage id="courtList.title" />
         </h2>
-        <Button
-          variant='ghost'
-          size='small'
-          onClick={openModal}
-          className="!p-1.5 sm:!p-2 text-gray-600 hover:text-gray-900"
-          aria-label="Abrir Filtros"
-        >
+        <Button variant='ghost' size='small' onClick={openModal} className="!p-1.5 sm:!p-2 text-gray-600 hover:text-gray-900" aria-label={intl.formatMessage({id: "courtList.filterButton"})}>
           <FiFilter size={20} />
-          <span className="hidden ml-1 sm:inline">Filtro</span>
+          <span className="hidden ml-1 sm:inline"><FormattedMessage id="courtList.filterButton" /></span>
         </Button>
       </header>
 
-      {/* Modal de Filtros con Headless UI */}
       <Transition appear show={isFilterModalOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-30" onClose={closeModal}> {/* z-30 para estar sobre el header sticky */}
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100"
-            leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black/40" /> {/* Overlay más oscuro */}
+        <Dialog as="div" className="relative z-30" onClose={closeModal}>
+          {/* ... (Overlay sin cambios de texto) ... */}
+          <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
+            <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" />
           </Transition.Child>
-
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex items-center justify-center min-h-full p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95"
-              >
+              <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
                 <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                   <Dialog.Title as="h3" className="flex items-center justify-between text-lg font-medium leading-6 text-gray-900">
-                    Filtrar Canchas
-                    <Button variant="ghost" onClick={closeModal} className="!p-1 text-gray-500 hover:text-gray-700" aria-label="Cerrar modal">
+                    <FormattedMessage id="courtList.filterModalTitle" />
+                    <Button variant="ghost" onClick={closeModal} className="!p-1 text-gray-400 hover:text-gray-600" aria-label={intl.formatMessage({id: "general.close"})}>
                       <FiX size={20} />
                     </Button>
                   </Dialog.Title>
                   <div className="mt-4 space-y-4">
-                    {/* Filtro de Fecha en Modal */}
                     <div>
-                      <label htmlFor="modal-date-filter" className="block text-sm font-medium text-gray-700 mb-1">
-                        <FiCalendar className="inline mr-1 -mt-0.5" size={14}/> Fecha
+                      <label htmlFor="surface-filter" className="flex items-center text-sm font-medium text-gray-700 mb-1">
+                        <FiTag className="mr-1.5 -mt-0.5" size={14} /> <FormattedMessage id="courtList.surfaceLabel" />
                       </label>
-                      <input
-                        id="modal-date-filter" type="date" value={selectedDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
-                        className="block w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-                        min={new Date().toISOString().substring(0, 10)}
-                      />
-                    </div>
-                    {/* Filtro de Superficie */}
-                    <div>
-                      <label htmlFor="surface-filter" className="block text-sm font-medium text-gray-700 mb-1">
-                        <FiTag className="inline mr-1 -mt-0.5" size={14}/> Superficie
-                      </label>
-                      <select
-                        id="surface-filter"
-                        value={filterSurface}
-                        onChange={(e) => setFilterSurface(e.target.value)}
-                        className="block w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-                      >
-                        <option value="">Todas las superficies</option>
-                        <option value="Tierra Batida">Tierra Batida</option>
-                        <option value="Dura">Dura</option>
-                        <option value="Césped Sintético">Césped Sintético</option>
-                        <option value="Indoor">Indoor</option>
+                      <select id="surface-filter" value={filterSurface} onChange={(e) => setFilterSurface(e.target.value)}
+                        className="block w-full px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                        <option value=""><FormattedMessage id="courtList.surface.all" /></option>
+                        <option value="Tierra Batida"><FormattedMessage id="courtList.surface.clay" /></option>
+                        <option value="Dura"><FormattedMessage id="courtList.surface.hard" /></option>
+                        <option value="Césped Sintético"><FormattedMessage id="courtList.surface.grass" /></option>
+                        <option value="Indoor"><FormattedMessage id="courtList.surface.indoor" /></option>
                       </select>
                     </div>
-                    {/* Aquí podrías añadir más filtros (ej. Hora del día) */}
+                    <div className="flex items-center justify-between pt-2">
+                      <span className="flex flex-col">
+                        <span className="text-sm font-medium text-gray-700"><FormattedMessage id="courtList.showOnlyAvailableLabel" /></span>
+                        <span className="text-xs text-gray-500"><FormattedMessage id="courtList.showOnlyAvailableSublabel" /></span>
+                      </span>
+                      <button type="button" className={/* ... (clases sin cambios de texto) ... */ classNames( showOnlyAvailable ? 'bg-primary' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2')}
+                        onClick={() => setShowOnlyAvailable(!showOnlyAvailable)} aria-pressed={showOnlyAvailable}>
+                        <span className="sr-only"><FormattedMessage id="courtList.showOnlyAvailableLabel" /></span>
+                        <span aria-hidden="true" className={/* ... (clases sin cambios de texto) ... */ classNames( showOnlyAvailable ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out')} />
+                      </button>
+                    </div>
                   </div>
-
                   <div className="mt-6 flex justify-end space-x-3">
-                    <Button variant="outline" onClick={() => { setFilterSurface(''); setFilterTimeOfDay(''); closeModal(); /* También resetea fecha si quieres */ }}>
-                      Limpiar
-                    </Button>
-                    <Button variant="primary" onClick={handleApplyFilters}>
-                      Aplicar Filtros
-                    </Button>
+                    <Button variant="outline" onClick={handleClearFilters}><FormattedMessage id="courtList.clearFiltersButton" /></Button>
+                    <Button variant="primary" onClick={handleApplyFilters}><FormattedMessage id="courtList.applyFiltersButton" /></Button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -182,75 +172,82 @@ const CourtListScreen: React.FC = () => {
           </div>
         </Dialog>
       </Transition>
-      {/* Fin del Modal de Filtros */}
 
-      {/* Barra de Filtro Rápido de Fecha (visible siempre debajo del header) */}
-      <div className="sticky top-14 z-10 flex items-center gap-2 p-3 bg-gray-100 border-b border-gray-200 sm:p-4">
-        <label htmlFor="main-date-filter" className="text-sm font-medium text-gray-700 whitespace-nowrap">
-          <FiCalendar className="inline mr-1 -mt-0.5" size={14}/> Fecha:
-        </label>
-        <input
-          id="main-date-filter" type="date" value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          className="flex-grow w-auto max-w-xs px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-          min={new Date().toISOString().substring(0, 10)}
-        />
+      <div className="sticky top-14 z-10 flex flex-col sm:flex-row items-center gap-3 p-3 bg-gray-100 border-b border-gray-200 sm:p-4">
+        <div className="relative w-full sm:flex-grow">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <FiSearch className="w-5 h-5 text-gray-400" />
+          </div>
+          <input type="text" placeholder={intl.formatMessage({ id: "courtList.searchPlaceholder" })} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
+            className="block w-full py-2 pl-10 pr-3 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary" />
+        </div>
+        <div className="flex items-center w-full mt-2 sm:mt-0 sm:w-auto">
+          <label htmlFor="main-date-filter" className="flex items-center pr-2 text-sm font-medium text-gray-700 whitespace-nowrap">
+            <FiCalendar className="mr-1 -mt-0.5" size={14} /> <FormattedMessage id="courtList.dateLabel" />
+          </label>
+          <input id="main-date-filter" type="date" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} min={new Date().toISOString().substring(0, 10)}
+            className="flex-grow w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md shadow-sm sm:w-auto focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary" />
+        </div>
       </div>
 
-      {/* Contenido Principal: Lista de Canchas */}
       <main className="flex-grow p-3 sm:p-4">
-        {loading && (
-          <div className="flex justify-center items-center py-10">
-            <svg className="w-8 h-8 text-primary animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <p className="ml-3 text-gray-600">Cargando canchas...</p>
+        {error && (
+          <div role="alert" className="p-4 mb-4 text-sm text-center text-red-700 bg-red-100 border border-red-300 rounded-md">
+            <FiAlertCircle className="inline w-5 h-5 mr-2" /> {error} {}
           </div>
         )}
-        {!loading && courts.length === 0 && (
+        {loading && (
+          <div className="flex justify-center py-10">
+            <span className="text-gray-500 text-lg"><FormattedMessage id="courtList.loadingCourts" /></span>
+          </div>
+        )}
+        {!loading && !error && filteredCourts.length === 0 && (
           <div className="py-10 text-center">
-            <FiInfo size={40} className="mx-auto mb-3 text-gray-400" />
-            <p className="text-gray-600">
-              No hay canchas disponibles para los filtros seleccionados
-              <br/>el {new Date(selectedDate).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })}.
+            <FiInfo size={48} className="mx-auto mb-4 text-gray-400" />
+            <h3 className="text-xl font-semibold text-gray-700"><FormattedMessage id="courtList.noCourtsFoundTitle" /></h3>
+            <p className="mt-1 text-gray-500">
+              <FormattedMessage id="courtList.noCourtsFoundSubtitle" />
             </p>
-            <Button variant="secondary" className="mt-4" onClick={openModal}>
-                Modificar Filtros
+            <Button variant="secondary" className="mt-6 inline-flex items-center gap-2" onClick={openModal}>
+              <FiFilter size={16} /> <FormattedMessage id="courtList.modifyFiltersButton" />
             </Button>
           </div>
         )}
-        {!loading && courts.length > 0 && (
+        {!loading && !error && filteredCourts.length > 0 && (
           <div className="space-y-4">
-            {courts.map(court => (
-              <div key={court.id} className="flex flex-col sm:flex-row gap-3 sm:gap-4 p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+            {filteredCourts.map(court => (
+              <div key={court.id} className="flex flex-col overflow-hidden bg-white border border-gray-200 rounded-lg shadow-sm sm:flex-row hover:shadow-lg transition-shadow duration-200 group">
+              
                 <img
-                  src={court.img || "/placeholder-court-default.jpg"} // Placeholder si no hay img
-                  alt={court.name}
-                  className="w-full h-40 sm:w-40 sm:h-auto object-cover rounded-md border border-gray-100 flex-shrink-0"
+                  src={court.img || "/placeholder-court-default.jpg"}
+                  alt={court.name} // El alt text podría internacionalizarse si los nombres de cancha también lo están
+                  className="w-full h-48 sm:w-40 md:w-48 sm:h-auto object-cover flex-shrink-0 transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="flex flex-col flex-grow min-w-0">
-                  <h3 className="text-lg font-semibold text-gray-800 truncate">
-                    {court.name}
+                <div className="flex flex-col flex-grow p-4">
+                  <h3 className="text-lg font-semibold text-gray-800 transition-colors group-hover:text-primary">
+                    {court.name} {/* Asumiendo que los nombres de cancha no se traducen o vienen traducidos del backend */}
                   </h3>
-                  <div className="mt-1 space-y-0.5 text-sm text-gray-600">
+                  <div className="mt-1 space-y-1 text-sm text-gray-600">
                     <p className="flex items-center gap-1.5">
-                      <FiMapPin size={14} className="text-gray-500 shrink-0" /> {court.location}
+                      <FiMapPin size={14} className="text-gray-400 shrink-0" /> {court.location} {/* Localización podría necesitar traducción */}
                     </p>
                     <p className="flex items-center gap-1.5">
-                      <FiTag size={14} className="text-gray-500 shrink-0" /> {court.surface}
+                      <FiTag size={14} className="text-gray-400 shrink-0" />
+                      {/* Para traducir la superficie si los valores son claves de i18n */}
+                      <FormattedMessage id={`courtList.surface.${court.surface.toLowerCase().replace(/\s+/g, '')}`} defaultMessage={court.surface} />
+                      {/* Ejemplo: courtList.surface.tierrabatida, courtList.surface.dura */}
                     </p>
                     <p className="flex items-center gap-1.5 font-medium">
-                      {getAvailabilityIcon(court.availability)} {court.availability}
+                      {getAvailabilityDisplay(court)}
                     </p>
                   </div>
-                  <div className="mt-auto pt-3 text-right sm:text-left"> {/* mt-auto empuja este div abajo */}
+                  <div className="mt-auto pt-4 text-right">
                     <Button
-                      variant="primary" // Cambiado a primary para destacar
+                      variant="primary"
                       size="small"
-                      onClick={() => navigate(`/courts/${court.id}/booking`, { state: { courtName: court.name } })}
+                      onClick={() => navigate(`/courts/${court.id}/booking`, { state: { courtName: court.name, selectedDate: selectedDate, hourlyRate: court.hourlyRate } })} // Pasar hourlyRate
                     >
-                      Ver Horarios
+                      <FormattedMessage id="courtList.viewSchedulesButton" />
                     </Button>
                   </div>
                 </div>
@@ -259,9 +256,8 @@ const CourtListScreen: React.FC = () => {
           </div>
         )}
       </main>
-      {/* BottomNav se renderiza desde App.tsx */}
     </div>
   );
-}
+};
 
 export default CourtListScreen;

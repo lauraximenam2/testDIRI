@@ -1,69 +1,105 @@
 // src/screens/LoginScreen.tsx
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
-import { signInWithEmailAndPassword } from 'firebase/auth'; 
-import { auth } from '../../firebase-config'; 
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase-config';
+import { FormattedMessage, useIntl } from 'react-intl';
+import logger from '../services/logging';
 
 
 const LoginScreen: React.FC = () => {
+
   const navigate = useNavigate();
+  const intl = useIntl(); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (event: React.FormEvent) => { // <--- Convertir a async
+
+  useEffect(() => {
+    logger.debug("LoginScreen montado");
+    return () => {
+      logger.debug("LoginScreen desmontado");
+    };
+  }, []); 
+
+  const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
+    logger.info(`Intento de inicio de sesión para email: ${email}`); // Loguea el intento
     setError('');
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password); // <--- Usar Firebase Auth
-      navigate('/dashboard'); // Firebase onAuthStateChanged se encargará del resto
+      await signInWithEmailAndPassword(auth, email, password);
+      logger.info(`Inicio de sesión exitoso para: ${email}`); // Loguea el éxito
+      navigate('/dashboard');
     } catch (err: any) {
-      setError(err.message || 'Error al iniciar sesión. Verifica tus credenciales.');
-      console.error("Error de login:", err);
+
+      logger.error(`Error de inicio de sesión para ${email}: ${err.message || String(err)}`);
+      if (err.code) {
+        logger.debug(`Código de error de Firebase (login): ${err.code}`);
+      }
+      if (err.stack) {
+        logger.debug(`Stack trace del error de login: ${err.stack}`);
+      }
+
+      let errorMessage = intl.formatMessage({ id: 'login.error.generic' });
+      if (err.code) {
+        switch (err.code) {
+          case 'auth/user-not-found':
+          case 'auth/wrong-password':
+          case 'auth/invalid-credential':
+            errorMessage = intl.formatMessage({ id: 'login.error.generic' });
+            break;
+          default:
+            break;
+        }
+      }
+      setError(errorMessage);
     }
     setLoading(false);
   };
-  
 
   return (
-    // Contenedor principal de la pantalla
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary to-green-600 p-4">
-
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-2xl">
-        <img src="/tennis-logo.svg" alt="Logo" className="w-20 h-20 mx-auto mb-5" />
-        <h2 className="text-3xl font-bold text-center text-gray-800">Iniciar Sesión</h2>
-        
-        {error && <p role="alert" className="p-3 text-sm text-center text-red-700 bg-red-100 rounded-md">{error}</p>}
+        <h2 className="text-3xl font-bold text-center text-gray-800">
+          <FormattedMessage id="login.title" defaultMessage="Iniciar Sesión" />
+        </h2>
 
-        {/* Formulario */}
+        {error && (
+          <p role="alert" className="p-3 text-sm text-center text-red-700 bg-red-100 rounded-md">
+            {error} 
+          </p>
+        )}
+
         <form onSubmit={handleLogin} className="space-y-5">
-          {/* Campo Email */}
           <div>
-            <label htmlFor="email" className="sr-only">Email</label> 
+            <label htmlFor="email" className="sr-only">
+              <FormattedMessage id="login.emailLabel" defaultMessage="Email" />
+            </label>
             <input
               id="email"
               type="email"
-              placeholder="Email"
+              placeholder={intl.formatMessage({ id: 'login.emailPlaceholder', defaultMessage: 'Email' })}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              // Clases para el input
-              className={`w-full px-4 py-3 text-gray-700 bg-white border rounded-lg focus:outline-none focus:ring-2  focus:border-transparent transition-colors
+              className={`w-full px-4 py-3 text-gray-700 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent transition-colors
                           ${error ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-primary'}`}
               required
               autoComplete="email"
             />
           </div>
 
-          {/* Campo Contraseña */}
           <div>
-            <label htmlFor="password" className="sr-only">Contraseña</label>
+            <label htmlFor="password" className="sr-only">
+              <FormattedMessage id="login.passwordLabel" defaultMessage="Contraseña" />
+            </label>
             <input
               id="password"
               type="password"
-              placeholder="Contraseña"
+              placeholder={intl.formatMessage({ id: 'login.passwordPlaceholder', defaultMessage: 'Contraseña' })}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={`w-full px-4 py-3 text-gray-700 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent transition-colors
@@ -73,35 +109,37 @@ const LoginScreen: React.FC = () => {
             />
           </div>
 
-          {/* Enlace Olvidaste Contraseña */}
           <div className="text-right">
             <Button
-              as="link" 
-              to="/forgot-password"
+              as="link"
+              to="/forgot-password" 
               variant="link"
               size="small"
-              className="text-sm text-gray-600 hover:text-primary" 
+              className="text-sm text-gray-600 hover:text-primary"
             >
-              ¿Olvidaste tu contraseña?
+              <FormattedMessage id="login.forgotPassword" defaultMessage="¿Olvidaste tu contraseña?" />
             </Button>
           </div>
 
-          {/* Botón Iniciar Sesión */}
-          <Button type="submit" variant="primary" fullWidth size="large" className="shadow-md hover:shadow-lg">
-            Iniciar Sesión
+          <Button type="submit" variant="primary" fullWidth size="large" className="shadow-md hover:shadow-lg" disabled={loading}>
+            {loading ? (
+              <FormattedMessage id="login.loading" defaultMessage="Iniciando sesión..." />
+            ) : (
+              <FormattedMessage id="login.submitButton" defaultMessage="Iniciar Sesión" />
+            )}
           </Button>
         </form>
 
-        {/* Texto y Enlace de Registro */}
         <p className="text-sm text-center text-gray-600">
-          ¿No tienes cuenta?{' '}
+          <FormattedMessage id="login.noAccount" defaultMessage="¿No tienes cuenta?" />
+          {' '}
           <Button
             as="link"
             to="/register"
             variant="link"
-            className="font-semibold !text-primary hover:!text-primary-dark hover:underline" 
+            className="font-semibold !text-primary hover:!text-primary-dark hover:underline"
           >
-            Regístrate aquí
+            <FormattedMessage id="login.registerHere" defaultMessage="Regístrate aquí" />
           </Button>
         </p>
       </div>

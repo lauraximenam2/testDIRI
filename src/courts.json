@@ -1,0 +1,1038 @@
+{
+  "courts": {
+    "cancha_playa_arena": {
+      "name": "Arena del Sol",
+      "location": "Resort Playa Dorada, Costa Alegre",
+      "surface": "Tierra Batida",
+      "img": "/img/canchas/playa_arena_sol.jpg",
+      "hourlyRate": 25,
+      "description": "Disfruta del tenis con vistas al mar. Pista de tierra batida de alta calidad, ideal para todos los niveles.",
+      "features": ["Vistas al mar", "Bar cercano", "Alquiler de material"],
+      "schedules": {
+        "2025-07-01": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-02": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-03": {
+          "08:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-04": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-05": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-06": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-07": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-08": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-09": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-10": {
+          "08:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-11": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-12": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-13": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-14": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-15": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-16": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-17": {
+          "08:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-18": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-19": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-20": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-21": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-22": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-23": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-24": {
+          "08:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-25": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-26": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-27": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-28": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-29": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-30": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-31": {
+          "08:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null }
+        }
+      }
+    },
+    "cancha_urbana_rapida": {
+      "name": "Urbana Express",
+      "location": "Centro Deportivo Metropolitano, Distrito Financiero",
+      "surface": "Dura",
+      "img": "/img/canchas/urbana_rapida_noche.jpg",
+      "hourlyRate": 18,
+      "description": "Pista rápida perfecta para un partido después del trabajo. Excelente iluminación nocturna.",
+      "features": ["Iluminación nocturna LED", "Fácil acceso en transporte público", "Vestuarios modernos"],
+      "schedules": {
+        "2025-07-01": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-02": {
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-03": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-04": {
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null },
+          "22:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-05": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-06": {
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-07": {
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-08": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-09": {
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-10": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-11": {
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-12": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-13": {
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-14": {
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-15": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-16": {
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-17": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-18": {
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-19": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-20": {
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-21": {
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-22": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-23": {
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-24": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-25": {
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-26": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-27": {
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-28": {
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-29": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-30": {
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null },
+          "21:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-31": {
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null },
+          "19:00": { "status": "available", "userId": null, "bookingId": null },
+          "20:00": { "status": "available", "userId": null, "bookingId": null }
+        }
+      }
+    },
+    "cancha_parque_verde": {
+      "name": "El Robledal",
+      "location": "Parque Natural Los Fresnos, Zona Norte",
+      "surface": "Césped Sintético",
+      "img": "/img/canchas/parque_cesped_natural.jpg",
+      "hourlyRate": 20,
+      "description": "Juega rodeado de naturaleza en nuestra pista de césped sintético de última generación.",
+      "features": ["Entorno natural", "Zona de picnic", "Parking gratuito"],
+      "schedules": {
+        "2025-07-01": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-02": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-03": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-04": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-05": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-06": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-07": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-08": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-09": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-10": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-11": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-12": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-13": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-14": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-15": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-16": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-17": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-18": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-19": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-20": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-21": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-22": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-23": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-24": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-25": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-26": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-27": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-28": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-29": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-30": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-31": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        }
+      }
+    },
+    "cancha_indoor_olimpia": {
+      "name": "Olimpia Indoor Center",
+      "location": "Complejo Olímpico Municipal, Sector Este",
+      "surface": "Indoor",
+      "img": "/img/canchas/indoor_profesional.jpg",
+      "hourlyRate": 30,
+      "description": "La mejor opción para jugar sin preocuparte por el clima. Superficie indoor de competición.",
+      "features": ["Climatizada", "Gradas", "Cafetería"],
+      "schedules": {
+        "2025-07-01": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-02": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-03": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-04": {
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-05": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-06": {
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-07": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-08": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-09": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-10": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-11": {
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-12": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-13": {
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-14": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-15": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-16": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-17": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-18": {
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-19": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-20": {
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-21": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-22": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-23": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-24": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-25": {
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-26": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-27": {
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-28": {
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-29": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-30": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-31": {
+          "09:00": { "status": "available", "userId": null, "bookingId": null },
+          "10:00": { "status": "available", "userId": null, "bookingId": null },
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null }
+        }
+      }
+    },
+    "cancha_universitaria_eco": {
+      "name": "Campus Verde EcoPista",
+      "location": "Universidad del Deporte Sostenible, Ciudad Universitaria",
+      "surface": "Dura",
+      "img": "/img/canchas/universitaria_eco.jpg",
+      "hourlyRate": 12,
+      "description": "Pista ecológica construida con materiales reciclados, ideal para estudiantes y comunidad local.",
+      "features": ["Materiales sostenibles", "Tarifas reducidas para estudiantes", "Bicicletero"],
+      "schedules": {
+        "2025-07-01": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-02": {
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-03": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-04": {
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-05": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-06": {
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-07": {
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-08": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-09": {
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-10": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-11": {
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-12": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-13": {
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-14": {
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-15": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-16": {
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-17": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-18": {
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-19": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-20": {
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-21": {
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-22": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-23": {
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-24": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-25": {
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-26": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null },
+          "18:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-27": {
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-28": {
+          "11:00": { "status": "available", "userId": null, "bookingId": null },
+          "12:00": { "status": "available", "userId": null, "bookingId": null },
+          "13:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-29": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-30": {
+          "13:00": { "status": "available", "userId": null, "bookingId": null },
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        },
+        "2025-07-31": {
+          "14:00": { "status": "available", "userId": null, "bookingId": null },
+          "15:00": { "status": "available", "userId": null, "bookingId": null },
+          "16:00": { "status": "available", "userId": null, "bookingId": null },
+          "17:00": { "status": "available", "userId": null, "bookingId": null }
+        }
+      }
+    }
+  }
+}

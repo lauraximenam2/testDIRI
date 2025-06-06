@@ -65,7 +65,7 @@ const Button: React.FC<ButtonProps> = ({
       variantClasses = ["bg-accent text-white", !disabled ? "hover:bg-accent-dark" : "", "focus-visible:ring-accent border border-transparent"];
       break;
     case 'error':
-      variantClasses = ["bg-error text-white", !disabled ? "hover:bg-red-700" : "", "focus-visible:ring-error border border-transparent"];
+      variantClasses = ["bg-red-700 text-white", !disabled ? "hover:bg-red-700" : ""];
       break;
     case 'outline':
       variantClasses = ["border border-primary text-primary", !disabled ? "hover:bg-primary hover:text-white" : "", "focus-visible:ring-primary"];

@@ -25,17 +25,12 @@ const ProfileScreen: React.FC = () => {
 
   const profileOptions = [
     { label: 'Mis Reservas', path: '/bookings', icon: FiCalendar },
-    { label: 'Editar Perfil', path: '/profile/edit', icon: FiEdit2 },
     { label: 'Cambiar Contraseña', path: '/profile/change-password', icon: FiLock },
-    { label: 'Ayuda y Soporte', path: '/help', icon: FiHelpCircle },
   ];
 
   return (
     // Contenedor principal de la pantalla
     <div className="flex flex-col min-h-screen bg-gray-100 pb-16">
-      <Header
-      />
-
       {/* Contenido Principal */}
       <main className="flex-grow p-4 sm:p-6 space-y-6 md:space-y-8">
         {/* Sección de Información del Usuario */}
@@ -54,15 +49,7 @@ const ProfileScreen: React.FC = () => {
               </div>
             )}
              
-            <Button
-                variant="ghost"
-                size="small"
-                onClick={() => navigate('/profile/edit')}
-                aria-label="Editar perfil"
-                className="absolute -bottom-2 -right-2 !p-2 bg-white rounded-full shadow-md hover:bg-gray-100 sm:static sm:ml-auto sm:self-start sm:-mt-0 sm:mr-0" // Posicionamiento diferente para móvil y desktop
-            >
-                <FiEdit2 size={18} className="text-primary" />
-            </Button>
+
           </div>
 
           {/* Nombre y Email */}

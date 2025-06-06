@@ -1,12 +1,12 @@
 // src/firebase-config.ts
 import { initializeApp, FirebaseApp } from "firebase/app";
 import { getAuth, Auth } from "firebase/auth";
-import { getDatabase, ref } from "firebase/database";
-
+import { getDatabase, Database } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC8ILk166rkDH77kzEYGphByUhJF_8zaao",
   authDomain: "apptenis-firebase.firebaseapp.com",
+  databaseURL: "https://apptenis-firebase-default-rtdb.firebaseio.com/", 
   projectId: "apptenis-firebase",
   storageBucket: "apptenis-firebase.firebasestorage.app",
   messagingSenderId: "534806375615",
@@ -17,8 +17,7 @@ const firebaseConfig = {
 const app: FirebaseApp = initializeApp(firebaseConfig);
 
 // Inicializar servicios de Firebase
-export const auth: Auth = getAuth(app);
+const auth: Auth = getAuth(app);
+const db: Database = getDatabase(app);
 
-export const db = getDatabase(app);
-
-export { app };
+export { app, auth, db };
